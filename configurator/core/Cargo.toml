@@ -1,0 +1,12 @@
+[package]
+name = "more-more-keypad-core"
+description = "Core logic for interacting with the More More Keypad!, a 3-key analog keypad for osu!"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+
+[dependencies]
+thiserror.workspace = true
