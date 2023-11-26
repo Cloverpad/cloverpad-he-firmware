@@ -11,6 +11,7 @@ homepage.workspace = true
 [dependencies]
 bytes.workspace = true
 prost.workspace = true
+serialport.workspace = true
 thiserror.workspace = true
 
 [build-dependencies]
