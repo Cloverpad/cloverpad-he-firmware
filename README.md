@@ -4,6 +4,6 @@ This repository contains the software for the [More More Keypad!](https://github
 
 The repository layout is as follows:
 
-- [`configurator`](./configurator/README.md): Configurator application for the keypad.
-- [`firmware`](./firmware/README.md): Arduino-based firmware for the keypad.
-- [`protocol`](./protocol/README.md): [Protocol Buffers](https://protobuf.dev/) definitions for the serial communication protocol.
+- [`configurator`](./configurator): Configurator application for the keypad.
+- [`firmware`](./firmware): Arduino-based firmware for the keypad.
+- [`protocol`](./protocol): Serial protocol definitions used by the firmware and configurator.
