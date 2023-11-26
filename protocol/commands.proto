@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package models.commands;
 
-import "commands/top-level.proto";
+import "commands-top-level.proto";
 
 // Represents the different response codes for a command.
 enum ResponseCode {
