@@ -19,7 +19,7 @@ message Command {
   oneof type {
     // Top-Level Commands: 100 to 199
     Echo echo = 100;
-    FirmwareVersion firmwareVersion = 101;
+    FirmwareVersion firmware_version = 101;
   }
 }
 
@@ -33,6 +33,6 @@ message Response {
   oneof data {
     // Top-Level Commands: 100 to 199
     EchoResponse echo = 100;
-    FirmwareVersionResponse firmwareVersion = 101;
+    FirmwareVersionResponse firmware_version = 101;
   }
 }
