@@ -7,8 +7,8 @@ version = "0.1.0"
 authors = ["Jon Pacheco <jon.pacheco@tutanota.com>"]
 edition = "2021"
 license = "GPL-3.0"
-repository = "https://github.com/Ace4896/more-more-keypad-configurator"
-homepage = "https://github.com/Ace4896/more-more-keypad-configurator"
+repository = "https://github.com/Ace4896/more-more-keypad-software"
+homepage = "https://github.com/Ace4896/more-more-keypad-software"
 
 [workspace.dependencies]
 more-more-keypad-configurator = { version = "0.1", path = "app" }
