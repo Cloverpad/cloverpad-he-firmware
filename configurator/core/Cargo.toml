@@ -9,4 +9,9 @@ repository.workspace = true
 homepage.workspace = true
 
 [dependencies]
+bytes.workspace = true
+prost.workspace = true
 thiserror.workspace = true
+
+[build-dependencies]
+prost-build.workspace = true

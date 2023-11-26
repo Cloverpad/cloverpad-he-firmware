@@ -14,12 +14,14 @@ homepage = "https://github.com/Ace4896/more-more-keypad-software"
 more-more-keypad-configurator = { version = "0.1", path = "app" }
 more-more-keypad-core = { version = "0.1", path = "core" }
 
+bytes = "1.5"
 log = "0.4"
+prost = "0.12"
+prost-build = "0.12"
 thiserror = "1"
 
 egui = "0.24"
 eframe = { version = "0.24", default-features = false }
-
 env_logger = "0.10"
 image = { version = "0.24", default-features = false }
 rfd = "0.12"
