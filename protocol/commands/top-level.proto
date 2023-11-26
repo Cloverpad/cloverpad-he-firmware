@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package models.commands;
+
+// Debug-specific command used for checking that serial communication is working.
+message Echo {
+  string value = 1;
+}
+
+// Response for the 'Echo' command.
+message EchoResponse {
+  string value = 1;
+}
+
+// Command for getting the firmware version of the keypad.
+message FirmwareVersion {}
+
+// Response for the 'FirmwareVersion' command.
+message FirmwareVersionResponse {
+  int32 version = 1;
+}

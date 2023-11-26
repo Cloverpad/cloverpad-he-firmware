@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package models.commands;
+
+import "commands/top-level.proto";
+
+// Represents the different response codes for a command.
+enum ResponseCode {
+  SUCCESS = 0;
+  UNKNOWN_ERROR = 1;
+  UNSUPPORTED_COMMAND = 2;
+}
+
+// Represents a command that is sent to the keypad.
+message Command {
+  reserved 1 to 99;     // Reserved for additional metadata
+  reserved 102 to 199;  // Reserved for top-level commands
+
+  oneof type {
+    // Top-Level Commands: 100 to 199
+    Echo echo = 100;
+    FirmwareVersion firmwareVersion = 101;
+  }
+}
+
+// Represents the keypad's response to a command.
+message Response {
+  ResponseCode code = 1;
+
+  reserved 2 to 99;     // Reserved for additional metadata
+  reserved 102 to 199;  // Reserved for top-level commands
+
+  oneof data {
+    // Top-Level Commands: 100 to 199
+    EchoResponse echo = 100;
+    FirmwareVersionResponse firmwareVersion = 101;
+  }
+}
