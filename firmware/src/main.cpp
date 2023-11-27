@@ -3,6 +3,9 @@
 
 #include <main.h>
 
+/// @brief 1 ms (1000 Hz) Polling Rate
+int usb_hid_poll_interval = 1;
+
 /// @brief Setup code for Core 0.
 void setup()
 {
