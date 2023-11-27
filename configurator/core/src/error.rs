@@ -11,4 +11,7 @@ pub enum Error {
 
     #[error("Serial communication error occurred: {}", .0)]
     Serial(#[from] serialport::Error),
+
+    #[error("Unable to decode serial message: {}", .0)]
+    SerialDecode(#[from] prost::DecodeError),
 }

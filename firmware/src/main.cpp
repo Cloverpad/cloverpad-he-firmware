@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <Keyboard.h>
 
+#include <main.h>
+
 /// @brief Setup code for Core 0.
 void setup()
 {
@@ -21,6 +23,7 @@ void setup1()
 /// @brief Main loop for Core 0. Used to handle serial communication and RGB effects.
 void loop()
 {
+    serial_handler.handle_next_command();
 }
 
 /// @brief Main loop for Core 1. Used to handle reading hall effect inputs and sending HID commands.

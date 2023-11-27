@@ -10,6 +10,7 @@ homepage.workspace = true
 
 [dependencies]
 bytes.workspace = true
+log.workspace = true
 prost.workspace = true
 serialport.workspace = true
 thiserror.workspace = true

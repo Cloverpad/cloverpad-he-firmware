@@ -21,6 +21,7 @@ prost-build = "0.12"
 serialport = "4.2"
 thiserror = "1"
 
+anyhow = "1"
 egui = "0.24"
 eframe = { version = "0.24", default-features = false }
 env_logger = "0.10"

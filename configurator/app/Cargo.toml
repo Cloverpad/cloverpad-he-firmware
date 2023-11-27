@@ -23,6 +23,7 @@ eframe.features = [
 image.workspace = true
 image.features = ["png"]
 
+anyhow.workspace = true
 env_logger.workspace = true
 log.workspace = true
 rfd.workspace = true
