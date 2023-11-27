@@ -7,6 +7,21 @@
 #include <constants.h>
 #include <serial.h>
 
+void SerialHandler::send_response(models_commands_Response *response)
+{
+    // Send how many encoded bytes are present (as unsigned 32-bit integer)
+    // Then send the actual data bytes
+    pb_ostream_t ostream = pb_ostream_from_buffer(this->command_buffer, sizeof(this->command_buffer));
+    pb_encode(&ostream, models_commands_Response_fields, response);
+
+    Serial.write((uint8_t)(ostream.bytes_written & 0xFF));
+    Serial.write((uint8_t)(ostream.bytes_written >> 8));
+    Serial.write((uint8_t)(ostream.bytes_written >> 16));
+    Serial.write((uint8_t)(ostream.bytes_written >> 24));
+
+    Serial.write(this->command_buffer, ostream.bytes_written);
+}
+
 void SerialHandler::handle_next_command()
 {
     int available_bytes = Serial.available();
@@ -21,15 +36,18 @@ void SerialHandler::handle_next_command()
     pb_istream_t istream = pb_istream_from_buffer(this->command_buffer, bytes_read);
     bool status = pb_decode(&istream, models_commands_Command_fields, &command);
 
+    // Initialise output response
+    models_commands_Response response = models_commands_Response_init_zero;
+
     if (!status)
     {
-        // TODO: Send error response
+        // Something went wrong while decoding
+        response.code = models_commands_ResponseCode_DECODE_ERROR;
+        send_response(&response);
         return;
     }
 
     // Determine the response based on what's been passed in
-    models_commands_Response response = models_commands_Response_init_zero;
-
     switch (command.which_type)
     {
     case models_commands_Command_echo_tag:
@@ -61,16 +79,5 @@ void SerialHandler::handle_next_command()
     }
     }
 
-    // Send the response to the host
-    // First, write how many bytes are present - this is an unsigned 32-bit integer in little endian
-    // Then, write the actual data bytes from the encoded response
-    pb_ostream_t ostream = pb_ostream_from_buffer(this->command_buffer, sizeof(this->command_buffer));
-    pb_encode(&ostream, models_commands_Response_fields, &response);
-
-    Serial.write((uint8_t)(ostream.bytes_written & 0xFF));
-    Serial.write((uint8_t)(ostream.bytes_written >> 8));
-    Serial.write((uint8_t)(ostream.bytes_written >> 16));
-    Serial.write((uint8_t)(ostream.bytes_written >> 24));
-
-    Serial.write(this->command_buffer, ostream.bytes_written);
+    send_response(&response);
 }

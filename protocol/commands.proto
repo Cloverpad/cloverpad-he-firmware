@@ -8,7 +8,8 @@ import "commands-top-level.proto";
 enum ResponseCode {
   SUCCESS = 0;
   UNKNOWN_ERROR = 1;
-  UNSUPPORTED_COMMAND = 2;
+  DECODE_ERROR = 2;
+  UNSUPPORTED_COMMAND = 3;
 }
 
 // Represents a command that is sent to the keypad.
