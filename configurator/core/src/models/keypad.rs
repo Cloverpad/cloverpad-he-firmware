@@ -48,8 +48,6 @@ impl Keypad {
     }
 
     pub fn send_command(&self, command: &Command) -> Result<Response> {
-        let command_bytes = command.encode_to_vec();
-
         // Open a connection to this keypad's serial port
         // Some additional flags are needed for the communication to not stall:
         // - DTR (Data Terminal Ready)
@@ -68,12 +66,18 @@ impl Keypad {
         log::debug!("Connected to serial port {}", &self.com_port);
 
         // Send the command to the keypad
+        // First, send how many bytes are in the command (unsigned 32-bit integer in little endian)
+        // Then, send the command bytes
+        let command_bytes = command.encode_to_vec();
+        let command_bytes_len = (command_bytes.len() as u32).to_le_bytes();
+
         log::debug!(
             "Sending command {:?} ({} bytes)...",
             &command,
             command_bytes.len()
         );
 
+        serial_port.write_all(&command_bytes_len)?;
         serial_port.write_all(&command_bytes)?;
 
         log::debug!("Sent command {:?}", &command);

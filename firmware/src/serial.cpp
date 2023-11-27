@@ -30,10 +30,17 @@ void SerialHandler::handle_next_command()
         return;
     }
 
-    // Attempt to read and parse the command that was just passed in
-    int bytes_read = Serial.readBytes(this->command_buffer, available_bytes);
+    // Determine how many bytes are in the command
+    Serial.readBytes(this->command_buffer, 4);
+    size_t command_length = (size_t)(this->command_buffer[0]) |
+                            (size_t)(this->command_buffer[1] << 8) |
+                            (size_t)(this->command_buffer[2] << 16) |
+                            (size_t)(this->command_buffer[3] << 24);
+
+    // Then, read in the command bytes
+    Serial.readBytes(this->command_buffer, command_length);
     models_commands_Command command = models_commands_Command_init_zero;
-    pb_istream_t istream = pb_istream_from_buffer(this->command_buffer, bytes_read);
+    pb_istream_t istream = pb_istream_from_buffer(this->command_buffer, command_length);
     bool status = pb_decode(&istream, models_commands_Command_fields, &command);
 
     // Initialise output response
