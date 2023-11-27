@@ -14,7 +14,10 @@ The configurator project is setup using Rust. Install the following:
 Then use one of the following commands to run the project:
 
 ```bash
-# Configurator GUI
+# GUI
 cargo run               # Run GUI in debug mode
 cargo run --release     # Run GUI in release mode
+
+# Interactive CLI
+cargo run -- --cli      # Run interactive CLI
 ```

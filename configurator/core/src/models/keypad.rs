@@ -22,6 +22,12 @@ pub enum KeypadVariant {
     HarukapadR1,
 }
 
+impl Display for Keypad {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} ({})", self.variant, &self.com_port)
+    }
+}
+
 impl Keypad {
     /// The baud rate (in bps) to use when communicating with a keypad's serial interface.
     pub const BAUD_RATE: u32 = 115200;

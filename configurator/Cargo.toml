@@ -11,18 +11,24 @@ repository = "https://github.com/Ace4896/more-more-keypad-software"
 homepage = "https://github.com/Ace4896/more-more-keypad-software"
 
 [workspace.dependencies]
+# Keypad Dependencies
 more-more-keypad-configurator = { version = "0.1", path = "app" }
 more-more-keypad-core = { version = "0.1", path = "core" }
 
+# Core Project Dependencies
 log = "0.4"
 prost = "0.12"
 prost-build = "0.12"
 serialport = "4.2"
 thiserror = "1"
 
+# Configurator Dependencies
 anyhow = "1"
+clap = { version = "4.4", features = ["derive"] }
 egui = "0.24"
 eframe = { version = "0.24", default-features = false }
 env_logger = "0.10"
 image = { version = "0.24", default-features = false }
 rfd = "0.12"
+rustyline = "12"
+shlex = "1.2"

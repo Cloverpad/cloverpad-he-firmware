@@ -1,50 +1,28 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use egui::{IconData, ViewportBuilder};
-use more_more_keypad_core::models::{self, keypad::Keypad, Command, Echo, FirmwareVersion};
 
 mod app;
+mod shell;
 
-fn main() -> anyhow::Result<()> {
+fn main() {
     env_logger::init();
 
-    let available_keypads = Keypad::find_available_keypads()?;
-    if let Some(keypad) = available_keypads.first() {
-        log::info!(
-            "Found {} keypad with serial port {}",
-            keypad.variant,
-            &keypad.com_port
-        );
-
-        let echo_command = Command {
-            r#type: Some(models::command::Type::Echo(Echo {
-                value: "Hello world!".to_string(),
-            })),
-        };
-
-        keypad.send_command(&echo_command)?;
-
-        // let firmware_command = Command {
-        //     r#type: Some(models::command::Type::FirmwareVersion(FirmwareVersion {}))
-        // };
-
-        // keypad.send_command(&firmware_command)?;
+    if std::env::args().any(|arg| arg == "--cli") {
+        let _ = shell::start_interactive_shell();
     } else {
-        log::info!("No keypads found");
+        eframe::run_native(
+            "com.ace4896.moremorekeypad.configurator",
+            eframe::NativeOptions {
+                viewport: ViewportBuilder::default()
+                    .with_title("More More Keypad! Configurator")
+                    .with_icon(get_window_icon()),
+                ..Default::default()
+            },
+            Box::new(|_| Box::new(app::MainApp::default())),
+        )
+        .expect("Something went wrong while running the configurator GUI");
     }
-
-    Ok(())
-
-    // eframe::run_native(
-    //     "com.ace4896.moremorekeypad.configurator",
-    //     eframe::NativeOptions {
-    //         viewport: ViewportBuilder::default()
-    //             .with_title("More More Keypad! Configurator")
-    //             .with_icon(get_window_icon()),
-    //         ..Default::default()
-    //     },
-    //     Box::new(|_| Box::new(app::MainApp::default())),
-    // )
 }
 
 /// Gets the window icon as [`egui::IconData`].
