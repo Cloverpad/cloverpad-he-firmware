@@ -1126,7 +1126,6 @@ dependencies = [
 name = "more-more-keypad-core"
 version = "0.1.0"
 dependencies = [
- "bytes",
  "log",
  "prost",
  "prost-build",
