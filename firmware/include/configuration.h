@@ -1,7 +1,41 @@
 #pragma once
 
 #include <constants.h>
-#include <keys_he.h>
+
+/// @brief Holds the configuration for a hall effect key.
+struct HEKeyConfiguration
+{
+    /// @brief Whether this hall effect key is enabled (i.e. keypresses are sent to the host).
+    bool enabled = false;
+
+    /// @brief The ASCII keycode assigned to this hall effect key.
+    char keycode = '\0';
+
+    /// @brief Whether rapid trigger is enabled on this hall effect key.
+    bool rapid_trigger = true;
+
+    /// @brief The actuation point to use when rapid trigger is disabled, in millimetres.
+    /// @note Must be in the range [0.1, 4.0].
+    double actuation_point_mm = 1.2;
+
+    /// @brief The upward sensitivity to use when rapid trigger is enabled, in millimetres.
+    /// @note Must be in the range [0.1, 2.0].
+    double up_sensitivity_mm = 0.3;
+
+    /// @brief The downward sensitivity to use when rapid trigger is enabled, in millimetres.
+    /// @note Must be in the range [0.1, 2.0].
+    double down_sensitivity_mm = 0.3;
+
+    /// @brief The upper deadzone to use when rapid trigger is enabled, in millimetres.
+    /// @note Must be in the range [0.0, 4.0] and less than `lower_deadzone_mm`.
+    ///       The key is always considered as released when above this threshold.
+    double upper_deadzone_mm = 0.4;
+
+    /// @brief The lower deadzone to use when rapid trigger is enabled, in millimetres.
+    /// @note Must be in the range [0.0, 4.0] and greater than `upper_deadzone_mm`.
+    ///       The key is always considered as pressed when below this threshold.
+    double lower_deadzone_mm = 3.6;
+};
 
 /// @brief Top-level struct for this keypad's configuration.
 /// @note This is stored in the virtual EEPROM.
@@ -10,5 +44,5 @@ struct KeypadConfiguration {
     uint32_t configuration_version = CONFIGURATION_VERSION;
 
     /// @brief The configurations for each hall effect key on this keypad.
-    HEKeyConfig he_keys[HE_KEY_COUNT] = {};
+    HEKeyConfiguration he_keys[HE_KEY_COUNT] = {};
 };

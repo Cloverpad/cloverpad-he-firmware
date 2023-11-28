@@ -1,6 +1,6 @@
 #include <input.h>
 
-void InputHandler::handle_next(HEKeyConfig he_key_configs[HE_KEY_COUNT])
+void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
 {
     for (size_t i = 0; i < HE_KEY_COUNT; i++)
     {
