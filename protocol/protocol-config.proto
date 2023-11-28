@@ -6,6 +6,9 @@ package protocol;
 message KeypadConfiguration {
   // The configuration version.
   uint32 configuration_version = 1;
+
+  // The name of the keypad.
+  string name = 2;
 }
 
 // Holds the configuration for a hall effect key.
