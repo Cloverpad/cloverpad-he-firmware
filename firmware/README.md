@@ -23,6 +23,7 @@ The firmware project is setup using PlatformIO and the Arduino-Pico framework. I
 
 - [VS Code](https://code.visualstudio.com/)
 - [PlatformIO Extension for VS Code](https://platformio.org/)
+  - If you're on Windows, you'll also need to [enable long file paths](https://arduino-pico.readthedocs.io/en/latest/platformio.html#important-steps-for-windows-users-before-installing).
 
 Then open this `firmware` folder in VS Code to initialise the PlatformIO project.
 
