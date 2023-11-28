@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package models.commands;
+package protocol;
 
 // Holds the current state of a hall effect key.
 message HEKeyState {

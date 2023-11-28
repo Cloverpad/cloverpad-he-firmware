@@ -1,2 +1,0 @@
-models.commands.Echo.value          max_size:64
-models.commands.EchoResponse.value  max_size:64

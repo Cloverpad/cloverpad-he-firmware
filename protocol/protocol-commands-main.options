@@ -1,0 +1,2 @@
+protocol.Echo.value          max_size:64
+protocol.EchoResponse.value  max_size:64

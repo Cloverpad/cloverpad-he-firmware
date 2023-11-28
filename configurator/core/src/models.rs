@@ -1,4 +1,4 @@
-include!(concat!(env!("OUT_DIR"), "/models.commands.rs"));
+include!(concat!(env!("OUT_DIR"), "/protocol.rs"));
 
 pub mod keypad;
 

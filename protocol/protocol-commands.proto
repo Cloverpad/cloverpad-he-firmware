@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package models.commands;
+package protocol;
 
-import "commands-top-level.proto";
 import "protocol-commands-keys.proto";
+import "protocol-commands-main.proto";
 
 // Represents the different response codes for a command.
 enum ResponseCode {

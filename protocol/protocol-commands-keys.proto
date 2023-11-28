@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package models.commands;
+package protocol;
 
 import "protocol-config.proto";
 
