@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package models.commands;
 
+import "protocol-config.proto";
+
 // Debug-specific command used for checking that serial communication is working.
 message Echo {
   // Value to be echoed. Maximum length of 64 bytes
@@ -21,4 +23,16 @@ message FirmwareVersion {}
 message FirmwareVersionResponse {
   // The firmware version in YYYYMMDD format
   int32 version = 1;
+}
+
+// Command for getting the main configuration that is currently active.
+message GetMainConfiguration {}
+
+// Response for the `GetMainConfiguration` command.
+message GetMainConfigurationResponse {
+  // The main configuration for the keypad.
+  KeypadConfiguration configuration = 1;
+
+  // Whether this configuration is "dirty", i.e. needs to be saved to EEPROM.
+  bool dirty = 2;
 }

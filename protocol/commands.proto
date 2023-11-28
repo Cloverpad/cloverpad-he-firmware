@@ -3,25 +3,38 @@ syntax = "proto3";
 package models.commands;
 
 import "commands-top-level.proto";
+import "protocol-commands-keys.proto";
 
 // Represents the different response codes for a command.
 enum ResponseCode {
+  // Top-Level Errors: 0 to 99
+
   SUCCESS = 0;
   UNKNOWN_ERROR = 1;
   DECODE_ERROR = 2;
   UNSUPPORTED_COMMAND = 3;
+
+  // Hall Effect Key Errors: 100 to 199
+
+  INVALID_HE_KEY_CONFIGURATION = 100;
 }
 
 // Represents a command that is sent to the keypad.
 message Command {
   reserved 1 to 99;     // Reserved for additional metadata
-  reserved 102 to 199;  // Reserved for top-level commands
+  reserved 103 to 199;  // Reserved for top-level commands
 
   oneof type {
     // Top-Level Commands: 100 to 199
   
     Echo echo = 100;
     FirmwareVersion firmware_version = 101;
+    GetMainConfiguration get_main_configuration = 102;
+
+    // Hall Effect Key Commands: 200 to 299
+
+    GetHEKeyConfiguration get_he_key_configuration = 200;
+    SetHEKeyConfiguration set_he_key_configuration = 201;
   }
 }
 
@@ -30,12 +43,18 @@ message Response {
   ResponseCode code = 1;
 
   reserved 2 to 99;     // Reserved for additional metadata
-  reserved 102 to 199;  // Reserved for top-level commands
+  reserved 103 to 199;  // Reserved for top-level commands
 
   oneof data {
     // Top-Level Commands: 100 to 199
 
     EchoResponse echo = 100;
     FirmwareVersionResponse firmware_version = 101;
+    GetMainConfigurationResponse get_main_configuration = 102;
+
+    // Hall Effect Key Commands: 200 to 299
+
+    GetHEKeyConfigurationResponse get_he_key_configuration = 200;
+    SetHEKeyConfigurationResponse set_he_key_configuration = 201;
   }
 }
