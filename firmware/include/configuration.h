@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 #include <constants.h>
 
 /// @brief Holds the configuration for a hall effect key.
