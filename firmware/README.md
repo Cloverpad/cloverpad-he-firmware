@@ -7,7 +7,7 @@ This folder contains the Arduino-based firmware for the [More More Keypad!](http
 To install new firmware:
 
 - Download the `firmware.uf2` file from [releases](https://github.com/Ace4896/more-more-keypad-software/releases)
-- Plug the PCB into your PCB while holding down the `BOOT` button
+- Plug the PCB into your PCB while holding down the `SEL` button
   - **NOTE**: If you're using a Raspberry Pi Pico, hold down the `BOOTSEL` button instead
 - After doing this, the keypad should appear on your PC as a storage device:
 
