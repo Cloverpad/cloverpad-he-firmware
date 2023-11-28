@@ -2,11 +2,16 @@
 
 #include <stdint.h>
 
+#include <moving_average.h>
+
 /// @brief The highest possible position for a hall effect key in millimetres.
 #define HIGHEST_POSITION_MM 0.0
 
 /// @brief The lowest possible position for a hall effect key in millimetres.
 #define LOWEST_POSITION_MM 4.0
+
+/// @brief The number of samples in the moving average for each key.
+#define MOVING_AVERAGE_SAMPLES 16
 
 /// @brief Holds the configuration for a hall effect key.
 struct HEKeyConfig
@@ -49,8 +54,8 @@ struct HEKeyState
     /// @brief Whether this hall effect key is currently pressed.
     bool pressed = false;
 
-    /// @brief The last 12-bit ADC average reading for this key.
-    uint16_t last_reading = 0;
+    /// @brief The moving average for this hall effect key's ADC readings.
+    MovingAverage average_reading = MovingAverage(16);
 
     /// @brief The last calculated position for this key, which is used for determining the next state of the key.
     double last_position_mm = HIGHEST_POSITION_MM;

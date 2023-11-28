@@ -9,8 +9,12 @@ int usb_hid_poll_interval = 1;
 /// @brief Setup code for Core 0.
 void setup()
 {
+    // Initialise USB interfaces
     Keyboard.begin();
     Serial.begin();
+
+    // Setup ADC to read as 12-bit values (native for RP2040)
+    analogReadResolution(12);
 
     // Signal to Core 1 that it's finished setting up
     rp2040.fifo.push(1);
@@ -32,4 +36,5 @@ void loop()
 /// @brief Main loop for Core 1. Used to handle reading hall effect inputs and sending HID commands.
 void loop1()
 {
+    input_handler.handle_next(configuration.he_keys);
 }

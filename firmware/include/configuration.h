@@ -10,5 +10,5 @@ struct KeypadConfiguration {
     uint32_t configuration_version = CONFIGURATION_VERSION;
 
     /// @brief The configurations for each hall effect key on this keypad.
-    HEKeyConfig he_keys[HE_KEY_COUNT];
+    HEKeyConfig he_keys[HE_KEY_COUNT] = {};
 };
