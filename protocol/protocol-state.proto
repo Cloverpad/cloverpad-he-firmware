@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package model.commands;
+
+// Holds the current state of a hall effect key.
+message HEKeyState {
+  // Whether this hall effect key is currently pressed.
+  bool pressed = 1;
+
+  // The current average reading for this hall effect key.
+  uint32 average_reading = 2;
+
+  // The last calculated position for this key, in millimetres.
+  // This is used for determining the next state of the key.
+  double last_position = 3;
+}

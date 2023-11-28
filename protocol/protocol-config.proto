@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package model.commands;
+
+// Holds the main fields in the top-level configuration.
+message KeypadConfiguration {
+  // The configuration version.
+  uint32 configuration_version = 1;
+}
+
+// Holds the configuration for a hall effect key.
+message HEKeyConfiguration {
+  reserved 4 to 99;     // Reserved for additional metadata
+  reserved 101 to 199;  // Reserved for configuration when rapid trigger is disabled
+  reserved 204 to 299;  // Reserved for configuration when rapid trigger is enabled
+
+  // Metadata: 1 to 99
+
+  // Whether this hall effect key is enabled (i.e. keypresses are sent to the host).
+  bool enabled = 1;
+
+  // The 8-bit ASCII keycode assigned to this hall effect key.
+  // Bits 9 through 32 are ignored.
+  int32 keycode = 2;
+
+  // Whether rapid trigger is enabled on this hall effect key.
+  bool rapid_trigger = 3;
+
+  // Configuration (Rapid Trigger Disabled): 100 to 199
+
+  // The actuation point to use when rapid trigger is disabled, in millimetres.
+  // Must be in the range [0.1, 4.0].
+  double actuation_point = 100;
+
+  // Configuration (Rapid Trigger Enabled): 200 to 299
+
+  // The upward sensitivity to use when rapid trigger is enabled, in millimetres.
+  // Must be in the range [0.1, 2.0].
+  double up_sensitivity = 200;
+
+  // The downward sensitivity to use when rapid trigger is enabled, in millimetres.
+  // Must be in the range [0.1, 2.0].
+  double down_sensitivity = 201;
+
+  // The upper deadzone to use when rapid trigger is enabled, in millimetres.
+  // Must be in the range [0.0, 4.0] and less than `lower_deadzone_mm`.
+  // The key is always considered as released when above this threshold.
+  double upper_deadzone = 202;
+
+  // The lower deadzone to use when rapid trigger is enabled, in millimetres.
+  // Must be in the range [0.0, 4.0] and greater than `upper_deadzone_mm`.
+  // The key is always considered as pressed when below this threshold.
+  double lower_deadzone = 203;
+}
