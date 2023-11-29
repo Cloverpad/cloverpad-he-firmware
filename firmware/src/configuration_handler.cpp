@@ -49,7 +49,7 @@ char ConfigurationHandler::get_default_keycode(size_t index)
 HEKeyConfiguration ConfigurationHandler::get_default_he_key_config(size_t index)
 {
     // Clamp the index (just in case)
-    if (index > HE_KEY_COUNT)
+    if (index >= HE_KEY_COUNT)
     {
         index = HE_KEY_COUNT - 1;
     }
