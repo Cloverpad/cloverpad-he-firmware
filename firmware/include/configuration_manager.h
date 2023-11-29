@@ -25,7 +25,7 @@ public:
     /// @brief Gets the default keycode for a particular key.
     /// @param index The index of the key. This is clamped to the range [0, HE_KEY_COUNT].
     /// @return The default keycode for this key index.
-    char ConfigurationManager::get_default_keycode(size_t index);
+    char get_default_keycode(size_t index);
 
     /// @brief Gets the default configuration for a hall effect key.
     /// @param index The index of the hall effect key.

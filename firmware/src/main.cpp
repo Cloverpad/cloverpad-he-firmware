@@ -34,7 +34,7 @@ void setup1()
 /// @brief Main loop for Core 0. Used to handle serial communication and RGB effects.
 void loop()
 {
-    serial_handler.handle_next_command();
+    serial_handler.handle_next_command(configuration_manager, input_handler);
 }
 
 /// @brief Main loop for Core 1. Used to handle reading hall effect inputs and sending HID commands.

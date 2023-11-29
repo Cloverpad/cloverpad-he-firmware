@@ -23,6 +23,8 @@ bool ConfigurationManager::save_keypad_configuration()
 
     EEPROM.put(EEPROM_CONFIGURATION_ADDR, this->keypad_configuration);
     this->modified = false;
+
+    return true;
 }
 
 char ConfigurationManager::get_default_keycode(size_t index)
@@ -62,4 +64,6 @@ KeypadConfiguration ConfigurationManager::get_default_keypad_config()
     {
         configuration.he_keys[i] = get_default_he_key_config(i);
     }
+
+    return configuration;
 }
