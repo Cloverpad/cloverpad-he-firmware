@@ -1,7 +1,5 @@
 #pragma once
 
-#include <ADCInput.h>
-
 #include <configuration.h>
 #include <constants.h>
 #include <state.h>
