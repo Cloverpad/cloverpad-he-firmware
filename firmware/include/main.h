@@ -1,8 +1,8 @@
 #pragma once
 
 #include <configuration_manager.h>
-#include <input.h>
-#include <serial.h>
+#include <input_handler.h>
+#include <serial_handler.h>
 
 /// @brief The configuration manager currently in use.
 ConfigurationManager configuration_manager = ConfigurationManager();

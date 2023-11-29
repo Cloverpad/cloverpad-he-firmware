@@ -5,7 +5,7 @@
 
 #include <protocol-commands.pb.h>
 #include <constants.h>
-#include <serial.h>
+#include <serial_handler.h>
 
 void SerialHandler::send_response(protocol_Response *response)
 {
