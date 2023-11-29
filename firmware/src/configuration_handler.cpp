@@ -22,7 +22,7 @@ bool ConfigurationHandler::save_keypad_configuration()
     }
 
     EEPROM.put(EEPROM_CONFIGURATION_ADDR, this->keypad_configuration);
-    EEPROM.commit();
+    // EEPROM.commit(); // For now, don't commit anything to EEPROM, to save flash writes
     this->modified = false;
 
     return true;
