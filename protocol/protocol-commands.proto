@@ -22,19 +22,28 @@ enum ResponseCode {
 // Represents a command that is sent to the keypad.
 message Command {
   reserved 1 to 99;     // Reserved for additional metadata
-  reserved 103 to 199;  // Reserved for top-level commands
+  reserved 105 to 199;  // Reserved for top-level commands
+  reserved 202 to 299;  // Reserved for main configuration commands
+  reserved 302 to 399;  // Reserved for hall effect key commands
 
   oneof type {
     // Top-Level Commands: 100 to 199
   
     Echo echo = 100;
     FirmwareVersion firmware_version = 101;
-    GetMainConfiguration get_main_configuration = 102;
+    SaveConfiguration save_configuration = 102;
+    RevertConfiguration revert_configuration = 103;
+    ResetToDefault reset_to_default = 104;
 
-    // Hall Effect Key Commands: 200 to 299
+    // Main Configuration Commands: 200 to 299
 
-    GetHEKeyConfiguration get_he_key_configuration = 200;
-    SetHEKeyConfiguration set_he_key_configuration = 201;
+    GetMainConfiguration get_main_configuration = 200;
+    SetMainConfiguration set_main_configuration = 201;
+
+    // Hall Effect Key Commands: 300 to 399
+
+    GetHEKeyConfiguration get_he_key_configuration = 300;
+    SetHEKeyConfiguration set_he_key_configuration = 301;
   }
 }
 
@@ -43,18 +52,27 @@ message Response {
   ResponseCode code = 1;
 
   reserved 2 to 99;     // Reserved for additional metadata
-  reserved 103 to 199;  // Reserved for top-level commands
+  reserved 105 to 199;  // Reserved for top-level commands
+  reserved 202 to 299;  // Reserved for main configuration commands
+  reserved 302 to 399;  // Reserved for hall effect key commands
 
   oneof data {
     // Top-Level Commands: 100 to 199
 
     EchoResponse echo = 100;
     FirmwareVersionResponse firmware_version = 101;
-    GetMainConfigurationResponse get_main_configuration = 102;
+    SaveConfigurationResponse save_configuration = 102;
+    RevertConfigurationResponse revert_configuration = 103;
+    ResetToDefaultResponse reset_to_default = 104;
 
-    // Hall Effect Key Commands: 200 to 299
+    // Main Configuration Commands: 200 to 299
 
-    GetHEKeyConfigurationResponse get_he_key_configuration = 200;
-    SetHEKeyConfigurationResponse set_he_key_configuration = 201;
+    GetMainConfigurationResponse get_main_configuration = 200;
+    SetMainConfigurationResponse set_main_configuration = 201;
+
+    // Hall Effect Key Commands: 300 to 399
+
+    GetHEKeyConfigurationResponse get_he_key_configuration = 300;
+    SetHEKeyConfigurationResponse set_he_key_configuration = 301;
   }
 }
