@@ -8,13 +8,13 @@
 struct HEKeyConfiguration
 {
     /// @brief Whether this hall effect key is enabled (i.e. keypresses are sent to the host).
-    bool enabled = false;
+    bool enabled = true;
 
     /// @brief The ASCII keycode assigned to this hall effect key.
     char keycode = '\0';
 
     /// @brief Whether rapid trigger is enabled on this hall effect key.
-    bool rapid_trigger = true;
+    bool rapid_trigger = false;
 
     /// @brief The actuation point to use when rapid trigger is disabled, in millimetres.
     /// @note Must be in the range [0.1, 4.0].
