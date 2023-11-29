@@ -1,11 +1,11 @@
 #pragma once
 
-#include <configuration.h>
+#include <configuration_manager.h>
 #include <input.h>
 #include <serial.h>
 
-/// @brief The top-level configuration currently in use.
-KeypadConfiguration configuration = get_default_keypad_config();
+/// @brief The configuration manager currently in use.
+ConfigurationManager configuration_manager = ConfigurationManager();
 
 /// @brief The serial handler used by the main loop.
 SerialHandler serial_handler = SerialHandler();

@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <EEPROM.h>
 #include <Keyboard.h>
 
 #include <main.h>
@@ -12,6 +13,9 @@ void setup()
     // Initialise USB interfaces
     Keyboard.begin();
     Serial.begin();
+
+    // Initialise EEPROM with 4kB memory
+    EEPROM.begin(4096);
 
     // Setup ADC to read as 12-bit values (native for RP2040)
     analogReadResolution(12);
@@ -36,5 +40,5 @@ void loop()
 /// @brief Main loop for Core 1. Used to handle reading hall effect inputs and sending HID commands.
 void loop1()
 {
-    input_handler.handle_next(configuration.he_keys);
+    input_handler.handle_next(configuration_manager.keypad_configuration.he_keys);
 }

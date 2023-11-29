@@ -53,30 +53,3 @@ struct KeypadConfiguration
     /// @brief The configurations for each hall effect key on this keypad.
     HEKeyConfiguration he_keys[HE_KEY_COUNT] = {};
 };
-
-char get_default_keycode(size_t index)
-{
-    switch (index)
-    {
-    case 0:
-        return 'z';
-
-    case 1:
-        return 'x';
-
-    case 2:
-        return 'c';
-
-    default:
-        return '\0';
-    }
-}
-
-/// @brief Gets the default configuration for a hall effect key.
-/// @param index The index of the hall effect key.
-/// @return The default configuration for this hall effect key, with an assigned keycode (Z, X or C).
-HEKeyConfiguration get_default_he_key_config(size_t index);
-
-/// @brief Gets the default keypad configuration.
-/// @return The default keypad configuration, including all sub-configurations.
-KeypadConfiguration get_default_keypad_config();
