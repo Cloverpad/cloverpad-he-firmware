@@ -2,6 +2,9 @@
 
 #include <protocol-commands.pb.h>
 
+#include <configuration_manager.h>
+#include <input.h>
+
 /// @brief Class for handling commands sent over the serial interface.
 class SerialHandler
 {
@@ -12,8 +15,8 @@ private:
     void send_response(protocol_Response *response);
 
 public:
-    // TODO: Add other configurations
-
     /// @brief Attempts to handle the next command (if one is available).
-    void handle_next_command();
+    /// @param configuration_manager The current configuration manager instance in use.
+    /// @param input_handler The current input handler instance in use.
+    void handle_next_command(ConfigurationManager &configuration_manager, InputHandler &input_handler);
 };

@@ -22,7 +22,7 @@ void SerialHandler::send_response(protocol_Response *response)
     Serial.write(this->command_buffer, ostream.bytes_written);
 }
 
-void SerialHandler::handle_next_command()
+void SerialHandler::handle_next_command(ConfigurationManager &configuration_manager, InputHandler &input_handler)
 {
     int available_bytes = Serial.available();
     if (available_bytes <= 0)
