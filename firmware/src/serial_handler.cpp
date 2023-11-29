@@ -57,17 +57,6 @@ void SerialHandler::handle_next_command(ConfigurationHandler &configuration_mana
     // Determine the response based on what's been passed in
     switch (command.which_type)
     {
-    case protocol_Command_echo_tag:
-    {
-        protocol_EchoResponse echo_response = protocol_EchoResponse_init_zero;
-        strcpy(echo_response.value, command.type.echo.value);
-
-        response.code = protocol_ResponseCode_SUCCESS;
-        response.which_data = protocol_Response_echo_tag;
-        response.data.echo = echo_response;
-        break;
-    }
-
     case protocol_Command_firmware_version_tag:
     {
         protocol_FirmwareVersionResponse firmware_version_response = protocol_FirmwareVersionResponse_init_zero;

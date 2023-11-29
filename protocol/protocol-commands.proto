@@ -20,15 +20,14 @@ enum ResponseCode {
 // Represents a command that is sent to the keypad.
 message Command {
   reserved 1 to 99;     // Reserved for additional metadata
-  reserved 102 to 199;  // Reserved for top-level commands
+  reserved 101 to 199;  // Reserved for top-level commands
   reserved 223 to 299;  // Reserved for configuration commands
   reserved 301 to 399;  // Reserved for state commands
 
   oneof type {
     // Top-Level Commands: 100 to 199
   
-    Echo echo = 100;
-    FirmwareVersion firmware_version = 101;
+    FirmwareVersion firmware_version = 100;
 
     // Configuration Commands: 200 to 299
 
@@ -54,15 +53,14 @@ message Response {
   ResponseCode code = 1;
 
   reserved 2 to 99;     // Reserved for additional metadata
-  reserved 102 to 199;  // Reserved for top-level commands
+  reserved 101 to 199;  // Reserved for top-level commands
   reserved 223 to 299;  // Reserved for configuration commands
   reserved 301 to 399;  // Reserved for state commands
 
   oneof data {
     // Top-Level Commands: 100 to 199
 
-    EchoResponse echo = 100;
-    FirmwareVersionResponse firmware_version = 101;
+    FirmwareVersionResponse firmware_version = 100;
 
     // Configuration Commands: 200 to 299
 

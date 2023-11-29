@@ -4,18 +4,6 @@ package protocol;
 
 import "protocol-config.proto";
 
-// Debug-specific command used for checking that serial communication is working.
-message Echo {
-  // Value to be echoed. Maximum length of 64 bytes
-  string value = 1;
-}
-
-// Response for the 'Echo' command.
-message EchoResponse {
-  // Value to be echoed. Maximum length of 64 bytes
-  string value = 1;
-}
-
 // Command for getting the firmware version of the keypad.
 message FirmwareVersion {}
 

@@ -49,12 +49,6 @@ pub enum ShellCommand {
     /// Prints a list of available keypads and displays a prompt to select one
     SelectKeypad,
 
-    /// Echoes a string to the keypad
-    Echo {
-        /// The value to echo
-        value: String,
-    },
-
     /// Gets the firmware version of the currently selected keypad
     FirmwareVersion,
 }
@@ -69,7 +63,6 @@ impl ShellCommand {
         match self {
             ShellCommand::Exit => std::process::exit(0),
             ShellCommand::SelectKeypad => Self::select_keypad(rl, current_keypad)?,
-            ShellCommand::Echo { value } => Self::echo(current_keypad, &value),
             ShellCommand::FirmwareVersion => Self::firmware_version(current_keypad),
         }
 
@@ -127,30 +120,6 @@ impl ShellCommand {
                 );
             }
             Err(e) => eprintln!("Unable to send command: {:?}", e),
-        }
-    }
-
-    /// Executes the "Echo" command.
-    fn echo(current_keypad: &mut Option<Keypad>, value: &str) {
-        if let Some(keypad) = current_keypad {
-            let echo_command = models::Command {
-                r#type: Some(models::command::Type::Echo(models::Echo {
-                    value: value.to_string(),
-                })),
-            };
-
-            // TODO: Looks like I need to move this to a helper method
-            match keypad.send_command(&echo_command) {
-                Ok(models::Response {
-                    code: 0,
-                    data: Some(models::response::Data::Echo(echo_response)),
-                }) => {
-                    println!("Keypad Response: {}", echo_response.value);
-                }
-                e => Self::print_keypad_error(e),
-            }
-        } else {
-            println!("Please select a keypad first");
         }
     }
 
