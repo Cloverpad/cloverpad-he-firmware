@@ -3,6 +3,7 @@ syntax = "proto3";
 package protocol;
 
 import "protocol-config.proto";
+import "protocol-state.proto";
 
 // Command for getting the hall effect key configuration for a specific key.
 message GetHEKeyConfiguration {
@@ -44,4 +45,23 @@ message SetHEKeyConfigurationResponse {
 
   // The new configuration in use.
   HEKeyConfiguration configuration = 2;
+}
+
+// Command for getting the current state of a hall effect key.
+message GetHEKeyState {
+  reserved "row_index", "col_index", "position";  // Reserved for keypads with more than one row
+
+  // The index of the key to get the current state for.
+  uint32 index = 1;
+}
+
+// Response for the `GetHEKeyState` command.
+message GetHEKeyStateResponse {
+  reserved "row_index", "col_index", "position";  // Reserved for keypads with more than one row
+
+  // The index of this key.
+  uint32 index = 1;
+
+  // The current state of this key.
+  HEKeyState state = 2;
 }

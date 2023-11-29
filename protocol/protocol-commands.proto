@@ -24,7 +24,7 @@ message Command {
   reserved 1 to 99;     // Reserved for additional metadata
   reserved 105 to 199;  // Reserved for top-level commands
   reserved 202 to 299;  // Reserved for main configuration commands
-  reserved 302 to 399;  // Reserved for hall effect key commands
+  reserved 303 to 399;  // Reserved for hall effect key commands
 
   oneof type {
     // Top-Level Commands: 100 to 199
@@ -44,6 +44,7 @@ message Command {
 
     GetHEKeyConfiguration get_he_key_configuration = 300;
     SetHEKeyConfiguration set_he_key_configuration = 301;
+    GetHEKeyState get_he_key_state = 302;
   }
 }
 
@@ -54,7 +55,7 @@ message Response {
   reserved 2 to 99;     // Reserved for additional metadata
   reserved 105 to 199;  // Reserved for top-level commands
   reserved 202 to 299;  // Reserved for main configuration commands
-  reserved 302 to 399;  // Reserved for hall effect key commands
+  reserved 303 to 399;  // Reserved for hall effect key commands
 
   oneof data {
     // Top-Level Commands: 100 to 199
@@ -74,5 +75,6 @@ message Response {
 
     GetHEKeyConfigurationResponse get_he_key_configuration = 300;
     SetHEKeyConfigurationResponse set_he_key_configuration = 301;
+    GetHEKeyStateResponse get_he_key_state = 302;
   }
 }
