@@ -1,8 +1,8 @@
 #include <EEPROM.h>
 
-#include <configuration_manager.h>
+#include <configuration_handler.h>
 
-void ConfigurationManager::load_keypad_configuration()
+void ConfigurationHandler::load_keypad_configuration()
 {
     KeypadConfiguration configuration = {};
     EEPROM.get(EEPROM_CONFIGURATION_ADDR, configuration);
@@ -14,7 +14,7 @@ void ConfigurationManager::load_keypad_configuration()
     }
 }
 
-bool ConfigurationManager::save_keypad_configuration()
+bool ConfigurationHandler::save_keypad_configuration()
 {
     if (!this->modified)
     {
@@ -27,7 +27,7 @@ bool ConfigurationManager::save_keypad_configuration()
     return true;
 }
 
-char ConfigurationManager::get_default_keycode(size_t index)
+char ConfigurationHandler::get_default_keycode(size_t index)
 {
     switch (index)
     {
@@ -45,7 +45,7 @@ char ConfigurationManager::get_default_keycode(size_t index)
     }
 }
 
-HEKeyConfiguration ConfigurationManager::get_default_he_key_config(size_t index)
+HEKeyConfiguration ConfigurationHandler::get_default_he_key_config(size_t index)
 {
     // Clamp the index (just in case)
     if (index > HE_KEY_COUNT)
@@ -57,7 +57,7 @@ HEKeyConfiguration ConfigurationManager::get_default_he_key_config(size_t index)
     return configuration;
 }
 
-KeypadConfiguration ConfigurationManager::get_default_keypad_config()
+KeypadConfiguration ConfigurationHandler::get_default_keypad_config()
 {
     KeypadConfiguration configuration = {};
     for (size_t i = 0; i < HE_KEY_COUNT; i++)

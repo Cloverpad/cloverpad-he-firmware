@@ -5,7 +5,7 @@
 /// @brief The address in EEPROM where the keypad configuration is stored.
 #define EEPROM_CONFIGURATION_ADDR 0
 
-class ConfigurationManager
+class ConfigurationHandler
 {
 public:
     /// @brief The keypad configuration that is currently active.

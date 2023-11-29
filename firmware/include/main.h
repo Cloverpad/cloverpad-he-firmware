@@ -1,11 +1,11 @@
 #pragma once
 
-#include <configuration_manager.h>
+#include <configuration_handler.h>
 #include <input_handler.h>
 #include <serial_handler.h>
 
 /// @brief The configuration manager currently in use.
-ConfigurationManager configuration_manager = ConfigurationManager();
+ConfigurationHandler configuration_manager = ConfigurationHandler();
 
 /// @brief The serial handler used by the main loop.
 SerialHandler serial_handler = SerialHandler();
