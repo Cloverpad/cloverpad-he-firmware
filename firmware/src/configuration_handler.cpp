@@ -22,6 +22,7 @@ bool ConfigurationHandler::save_keypad_configuration()
     }
 
     EEPROM.put(EEPROM_CONFIGURATION_ADDR, this->keypad_configuration);
+    EEPROM.commit();
     this->modified = false;
 
     return true;
