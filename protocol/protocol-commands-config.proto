@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package protocol;
+
+import "protocol-config.proto";
+
+// Command for getting the full configuration that is currently active.
+message GetConfiguration {}
+
+// Command for resetting the whole keypad to its default configuration.
+message ResetToDefault {}
+
+// Common response for `GetConfiguration` and `ResetToDefault`.
+// Contains the details of the full configuration currently in use.
+message FullConfigurationResponse {
+  // Whether the main configuration is "dirty", i.e. needs saving to EEPROM.
+  bool main_configuration_dirty = 1;
+
+  // The main configuration currently in use.
+  MainConfiguration main_configuration = 2;
+
+  /// Whether the hall effect key configurations are "dirty", i.e. need saving to EEPROM.
+  bool he_key_configurations_dirty = 10;
+
+  // The hall effect key configurations currently in use.
+  repeated HEKeyConfiguration he_key_configurations = 11;
+}
+
+// Command for setting the main configuration that is currently active.
+message SetMainConfiguration {
+  // The new main configuration to use.
+  // The configuration_version field is ignored, as this is provided by the firmware.
+  MainConfiguration configuration = 1;
+}
+
+// Command for reverting any unsaved changes made to the main configuration.
+message RevertMainConfiguration {}
+
+// Command for saving any unsaved changes made to the main configuration.
+message SaveMainConfiguration {}
+
+// Common response for `SetMainConfiguration`, `RevertMainConfiguration` and `SaveMainConfiguration`.
+message MainConfigurationResponse {
+  // Whether the main configuration is "dirty", i.e. needs saving to EEPROM.
+  bool dirty = 1;
+
+  // The main configuration currently in use.
+  MainConfiguration main_configuration = 2;
+}
+
+// Command for setting the hall effect key configuration for all keys or a specific key.
+message SetHEKeyConfiguration {
+  reserved "row_index", "col_index", "position";  // Reserved for keypads with more than one row
+
+  // The index of this key. If left empty, the configurations for all keys will be updated (except for keycode).
+  optional uint32 index = 1;
+
+  // The new configuration to use.
+  HEKeyConfiguration configuration = 2;
+}
+
+// Command for reverting any unsaved changes made  to all hall effect key configurations.
+message RevertHEKeyConfiguration {}
+
+// Command for saving any unsaved changes made to all hall effect key configurations.
+message SaveHEKeyConfiguration {}
+
+// Common response for `SetHEKeyConfiguration`, `RevertHEKeyConfiguration` and `SaveHEKeyConfiguration`.
+message HEKeyConfigurationResponse {
+  /// Whether the hall effect key configurations are "dirty", i.e. need saving to EEPROM.
+  bool dirty = 2;
+
+  // The current configurations for each hall effect key.
+  repeated HEKeyConfiguration configurations = 1;
+}

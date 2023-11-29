@@ -2,8 +2,9 @@ syntax = "proto3";
 
 package protocol;
 
-import "protocol-commands-keys.proto";
+import "protocol-commands-config.proto";
 import "protocol-commands-main.proto";
+import "protocol-commands-state.proto";
 
 // Represents the different response codes for a command.
 enum ResponseCode {
@@ -13,38 +14,38 @@ enum ResponseCode {
   UNKNOWN_ERROR = 1;
   DECODE_ERROR = 2;
   UNSUPPORTED_COMMAND = 3;
-
-  // Hall Effect Key Errors: 100 to 199
-
-  INVALID_HE_KEY_CONFIGURATION = 100;
+  INVALID_PARAMETERS = 4;
 }
 
 // Represents a command that is sent to the keypad.
 message Command {
   reserved 1 to 99;     // Reserved for additional metadata
-  reserved 105 to 199;  // Reserved for top-level commands
-  reserved 202 to 299;  // Reserved for main configuration commands
-  reserved 303 to 399;  // Reserved for hall effect key commands
+  reserved 102 to 199;  // Reserved for top-level commands
+  reserved 223 to 299;  // Reserved for configuration commands
+  reserved 301 to 399;  // Reserved for state commands
 
   oneof type {
     // Top-Level Commands: 100 to 199
   
     Echo echo = 100;
     FirmwareVersion firmware_version = 101;
-    SaveConfiguration save_configuration = 102;
-    RevertConfiguration revert_configuration = 103;
-    ResetToDefault reset_to_default = 104;
 
-    // Main Configuration Commands: 200 to 299
+    // Configuration Commands: 200 to 299
 
-    GetMainConfiguration get_main_configuration = 200;
-    SetMainConfiguration set_main_configuration = 201;
+    GetConfiguration get_configuration = 200;
+    ResetToDefault reset_to_default = 201;
 
-    // Hall Effect Key Commands: 300 to 399
+    SetMainConfiguration set_main_configuration = 210;
+    RevertMainConfiguration revert_main_configuration = 211;
+    SaveMainConfiguration save_main_configuration = 212;
 
-    GetHEKeyConfiguration get_he_key_configuration = 300;
-    SetHEKeyConfiguration set_he_key_configuration = 301;
-    GetHEKeyState get_he_key_state = 302;
+    SetHEKeyConfiguration set_he_key_configuration = 220;
+    RevertHEKeyConfiguration revert_he_key_configuration = 221;
+    SaveHEKeyConfiguration save_he_key_configuration = 222;
+
+    // State Commands: 300 to 399
+
+    GetHEKeyState get_he_key_state = 300;
   }
 }
 
@@ -53,28 +54,31 @@ message Response {
   ResponseCode code = 1;
 
   reserved 2 to 99;     // Reserved for additional metadata
-  reserved 105 to 199;  // Reserved for top-level commands
-  reserved 202 to 299;  // Reserved for main configuration commands
-  reserved 303 to 399;  // Reserved for hall effect key commands
+  reserved 102 to 199;  // Reserved for top-level commands
+  reserved 223 to 299;  // Reserved for configuration commands
+  reserved 301 to 399;  // Reserved for state commands
 
   oneof data {
     // Top-Level Commands: 100 to 199
 
     EchoResponse echo = 100;
     FirmwareVersionResponse firmware_version = 101;
-    SaveConfigurationResponse save_configuration = 102;
-    RevertConfigurationResponse revert_configuration = 103;
-    ResetToDefaultResponse reset_to_default = 104;
 
-    // Main Configuration Commands: 200 to 299
+    // Configuration Commands: 200 to 299
 
-    GetMainConfigurationResponse get_main_configuration = 200;
-    SetMainConfigurationResponse set_main_configuration = 201;
+    FullConfigurationResponse get_configuration = 200;
+    FullConfigurationResponse reset_to_default = 201;
 
-    // Hall Effect Key Commands: 300 to 399
+    MainConfigurationResponse set_main_configuration = 210;
+    MainConfigurationResponse revert_main_configuration = 211;
+    MainConfigurationResponse save_main_configuration = 212;
 
-    GetHEKeyConfigurationResponse get_he_key_configuration = 300;
-    SetHEKeyConfigurationResponse set_he_key_configuration = 301;
-    GetHEKeyStateResponse get_he_key_state = 302;
+    HEKeyConfigurationResponse set_he_key_configuration = 220;
+    HEKeyConfigurationResponse revert_he_key_configuration = 221;
+    HEKeyConfigurationResponse save_he_key_configuration = 222;
+
+    // State Commands: 300 to 399
+
+    GetHEKeyStateResponse get_he_key_state = 300;
   }
 }

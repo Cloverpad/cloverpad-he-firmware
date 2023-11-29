@@ -1,0 +1,2 @@
+protocol.FullConfigurationResponse.he_key_configurations    max_count:3
+protocol.HEKeyConfigurationResponse.configurations          max_count:3

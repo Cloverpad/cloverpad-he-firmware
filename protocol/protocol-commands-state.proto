@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package protocol;
+
+import "protocol-state.proto";
+
+// Command for getting the current state for each hall effect key.
+message GetHEKeyState {}
+
+// Response for the `GetHEKeyState` command.
+message GetHEKeyStateResponse {
+  // The current state for each hall effect key.
+  repeated HEKeyState states = 1;
+}

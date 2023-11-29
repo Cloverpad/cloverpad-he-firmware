@@ -1,6 +1,2 @@
 protocol.Echo.value          max_size:64
 protocol.EchoResponse.value  max_size:64
-
-protocol.RevertConfigurationResponse.he_key_configurations  max_count:3
-
-protocol.ResetToDefaultResponse.he_key_configurations   max_count:3

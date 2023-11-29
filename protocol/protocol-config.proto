@@ -3,7 +3,7 @@ syntax = "proto3";
 package protocol;
 
 // Holds the main fields in the top-level configuration.
-message KeypadConfiguration {
+message MainConfiguration {
   // The configuration version.
   uint32 configuration_version = 1;
 
