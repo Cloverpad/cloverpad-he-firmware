@@ -25,8 +25,8 @@ thiserror = "1"
 # Configurator Dependencies
 anyhow = "1"
 clap = { version = "4.4", features = ["derive"] }
-egui = "0.24"
-eframe = { version = "0.24", default-features = false }
+egui = "0.24.1"
+eframe = { version = "0.24.1", default-features = false }
 env_logger = "0.10"
 image = { version = "0.24", default-features = false }
 rfd = "0.12"
