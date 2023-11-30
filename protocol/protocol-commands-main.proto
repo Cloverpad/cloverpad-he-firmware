@@ -12,3 +12,15 @@ message FirmwareVersionResponse {
   // The firmware version in YYYYMMDD format
   int32 version = 1;
 }
+
+// Command for resetting the whole keypad to its default configuration.
+message ResetToDefault {}
+
+// Response which contains the full configuration currently in use.
+message FullConfigurationResponse {
+  // The main configuration currently in use.
+  MainConfiguration main_configuration = 1;
+
+  // The hall effect key configurations currently in use.
+  repeated HEKeyConfiguration he_key_configurations = 11;
+}
