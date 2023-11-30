@@ -21,7 +21,7 @@ enum ResponseCode {
 message Command {
   reserved 1 to 99;     // Reserved for additional metadata
   reserved 101 to 199;  // Reserved for top-level commands
-  reserved 223 to 299;  // Reserved for configuration commands
+  reserved 222 to 299;  // Reserved for configuration commands
   reserved 301 to 399;  // Reserved for state commands
 
   oneof type {
@@ -32,15 +32,14 @@ message Command {
     // Configuration Commands: 200 to 299
 
     GetConfiguration get_configuration = 200;
-    ResetToDefault reset_to_default = 201;
+    SaveConfiguration save_configuration = 201;
+    ResetToDefault reset_to_default = 202;
 
     SetMainConfiguration set_main_configuration = 210;
     RevertMainConfiguration revert_main_configuration = 211;
-    SaveMainConfiguration save_main_configuration = 212;
 
     SetHEKeyConfiguration set_he_key_configuration = 220;
     RevertHEKeyConfiguration revert_he_key_configuration = 221;
-    SaveHEKeyConfiguration save_he_key_configuration = 222;
 
     // State Commands: 300 to 399
 
@@ -54,7 +53,7 @@ message Response {
 
   reserved 2 to 99;     // Reserved for additional metadata
   reserved 101 to 199;  // Reserved for top-level commands
-  reserved 223 to 299;  // Reserved for configuration commands
+  reserved 222 to 299;  // Reserved for configuration commands
   reserved 301 to 399;  // Reserved for state commands
 
   oneof data {
@@ -65,15 +64,14 @@ message Response {
     // Configuration Commands: 200 to 299
 
     FullConfigurationResponse get_configuration = 200;
-    FullConfigurationResponse reset_to_default = 201;
+    FullConfigurationResponse save_configuration = 201;
+    FullConfigurationResponse reset_to_default = 202;
 
     MainConfigurationResponse set_main_configuration = 210;
     MainConfigurationResponse revert_main_configuration = 211;
-    MainConfigurationResponse save_main_configuration = 212;
 
     HEKeyConfigurationResponse set_he_key_configuration = 220;
     HEKeyConfigurationResponse revert_he_key_configuration = 221;
-    HEKeyConfigurationResponse save_he_key_configuration = 222;
 
     // State Commands: 300 to 399
 

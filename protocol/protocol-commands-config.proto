@@ -7,20 +7,17 @@ import "protocol-config.proto";
 // Command for getting the full configuration that is currently active.
 message GetConfiguration {}
 
+// Command for saving the full configuration that is currently active.
+message SaveConfiguration {}
+
 // Command for resetting the whole keypad to its default configuration.
 message ResetToDefault {}
 
-// Common response for `GetConfiguration` and `ResetToDefault`.
+// Common response for `GetConfiguration`, `SaveConfiguration` and `ResetToDefault`.
 // Contains the details of the full configuration currently in use.
 message FullConfigurationResponse {
-  // Whether the main configuration is "dirty", i.e. needs saving to EEPROM.
-  bool main_configuration_dirty = 1;
-
   // The main configuration currently in use.
   MainConfiguration main_configuration = 2;
-
-  /// Whether the hall effect key configurations are "dirty", i.e. need saving to EEPROM.
-  bool he_key_configurations_dirty = 10;
 
   // The hall effect key configurations currently in use.
   repeated HEKeyConfiguration he_key_configurations = 11;
@@ -36,14 +33,8 @@ message SetMainConfiguration {
 // Command for reverting any unsaved changes made to the main configuration.
 message RevertMainConfiguration {}
 
-// Command for saving any unsaved changes made to the main configuration.
-message SaveMainConfiguration {}
-
-// Common response for `SetMainConfiguration`, `RevertMainConfiguration` and `SaveMainConfiguration`.
+// Common response for `SetMainConfiguration` and `RevertMainConfiguration`.
 message MainConfigurationResponse {
-  // Whether the main configuration is "dirty", i.e. needs saving to EEPROM.
-  bool dirty = 1;
-
   // The main configuration currently in use.
   MainConfiguration main_configuration = 2;
 }
@@ -62,14 +53,8 @@ message SetHEKeyConfiguration {
 // Command for reverting any unsaved changes made  to all hall effect key configurations.
 message RevertHEKeyConfiguration {}
 
-// Command for saving any unsaved changes made to all hall effect key configurations.
-message SaveHEKeyConfiguration {}
-
-// Common response for `SetHEKeyConfiguration`, `RevertHEKeyConfiguration` and `SaveHEKeyConfiguration`.
+// Common response for `SetHEKeyConfiguration` and `RevertHEKeyConfiguration`.
 message HEKeyConfigurationResponse {
-  /// Whether the hall effect key configurations are "dirty", i.e. need saving to EEPROM.
-  bool dirty = 2;
-
   // The current configurations for each hall effect key.
   repeated HEKeyConfiguration configurations = 1;
 }
