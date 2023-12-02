@@ -23,7 +23,17 @@ The firmware project is setup using PlatformIO and the Arduino-Pico framework. I
 
 - [VS Code](https://code.visualstudio.com/)
 - [PlatformIO Extension for VS Code](https://platformio.org/)
-  - If you're on Windows, you'll also need to [enable long file paths](https://arduino-pico.readthedocs.io/en/latest/platformio.html#important-steps-for-windows-users-before-installing).
+
+Some additional setup is also needed depending on which OS you're using:
+
+- Windows:
+  - [Long file paths need to be enabled](https://arduino-pico.readthedocs.io/en/latest/platformio.html#important-steps-for-windows-users-before-installing)
+- Linux:
+  - `udev` rules need to be setup for PlatformIO and the keypads for this project:
+    - Download a copy of the `udev` rules for [PlatformIO](https://docs.platformio.org/en/latest/core/installation/udev-rules.html)
+    - Make a copy of the `udev` rules for [this project](./udev/99-more-more-keypad.rules)
+    - Copy both `.rules` files into `/etc/udev/rules.d`
+    - Restart udev: `sudo udevadm control --reload-rules && sudo udevadm trigger`
 
 Then open this `firmware` folder in VS Code to initialise the PlatformIO project.
 
