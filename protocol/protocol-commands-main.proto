@@ -14,7 +14,7 @@ message FirmwareVersionResponse {
 }
 
 // Command for resetting the whole keypad to its default configuration.
-message ResetToDefault {}
+message FactoryReset {}
 
 // Response which contains the full configuration currently in use.
 message FullConfigurationResponse {

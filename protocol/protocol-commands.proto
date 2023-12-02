@@ -31,7 +31,7 @@ message Command {
     // Top-Level Commands: 100 to 199
   
     FirmwareVersion firmware_version = 100;
-    ResetToDefault reset_to_default = 101;
+    FactoryReset factory_reset = 101;
 
     // State Commands: 200 to 299
 
