@@ -20,10 +20,10 @@ enum ResponseCode {
 // Represents a command that is sent to the keypad.
 message Command {
   reserved 1 to 99;       // Reserved for additional metadata
-  reserved 102 to 199;    // Reserved for top-level commands
+  reserved 104 to 199;    // Reserved for top-level commands
   reserved 201 to 299;    // Reserved for state commands
-  reserved 1004 to 1099;  // Reserved for main configuration commands
-  reserved 1104 to 1199;  // Reserved for hall effect key configuration commands
+  reserved 1003 to 1099;  // Reserved for main configuration commands
+  reserved 1103 to 1199;  // Reserved for hall effect key configuration commands
   reserved 1200 to 1299;  // Reserved for RGB underglow LED configuration commands
   reserved 1300 to 1399;  // Resrved for RGB switch LED configuration commands
 
@@ -31,7 +31,9 @@ message Command {
     // Top-Level Commands: 100 to 199
   
     FirmwareVersion firmware_version = 100;
-    FactoryReset factory_reset = 101;
+    GetConfiguration get_configuration = 101;
+    SaveConfiguration save_configuration = 102;
+    FactoryReset factory_reset = 103;
 
     // State Commands: 200 to 299
 
@@ -39,17 +41,13 @@ message Command {
 
     // Main Configuration Commands: 1000 to 1099
 
-    GetMainConfiguration get_main_configuration = 1000;
-    SetMainConfiguration set_main_configuration = 1001;
-    SaveMainConfiguration save_main_configuration = 1002;
-    RevertMainConfiguration revert_main_configuration = 1003;
+    SetMainConfiguration set_main_configuration = 1000;
+    RevertMainConfiguration revert_main_configuration = 1001;
 
     // Hall Effect Key Configuration Commands: 1100 to 1199
 
-    GetHEKeyConfiguration get_he_key_configuration = 1100;
-    SetHEKeyConfiguration set_he_key_configuration = 1101;
-    SaveHEKeyConfiguration save_he_key_configuration = 1102;
-    RevertHEKeyConfiguration revert_he_key_configuration = 1103;
+    SetHEKeyConfiguration set_he_key_configuration = 1100;
+    RevertHEKeyConfiguration revert_he_key_configuration = 1101;
 
     // RGB Underglow LED Configuration Commands: 1200 to 1299
     // RGB Switch LED Configuration Commands: 1300 to 1399
@@ -61,10 +59,10 @@ message Response {
   ResponseCode code = 1;
 
   reserved 2 to 99;     // Reserved for additional metadata
-  reserved 102 to 199;    // Reserved for top-level commands
+  reserved 104 to 199;    // Reserved for top-level commands
   reserved 201 to 299;    // Reserved for state commands
-  reserved 1004 to 1099;  // Reserved for main configuration commands
-  reserved 1104 to 1199;  // Reserved for hall effect key configuration commands
+  reserved 1003 to 1099;  // Reserved for main configuration commands
+  reserved 1103 to 1199;  // Reserved for hall effect key configuration commands
   reserved 1200 to 1299;  // Reserved for RGB underglow LED configuration commands
   reserved 1300 to 1399;  // Resrved for RGB switch LED configuration commands
 
@@ -72,7 +70,9 @@ message Response {
     // Top-Level Commands: 100 to 199
 
     FirmwareVersionResponse firmware_version = 100;
-    FullConfigurationResponse reset_to_default = 101;
+    FullConfigurationResponse get_configuration = 101;
+    FullConfigurationResponse save_configuration = 102;
+    FullConfigurationResponse reset_to_default = 103;
 
     // State Commands: 200 to 299
 
@@ -80,17 +80,13 @@ message Response {
 
     // Main Configuration Commands: 1000 to 1099
 
-    MainConfigurationResponse get_main_configuration = 1000;
-    MainConfigurationResponse set_main_configuration = 1001;
-    MainConfigurationResponse save_main_configuration = 1002;
-    MainConfigurationResponse revert_main_configuration = 1003;
+    MainConfigurationResponse set_main_configuration = 1000;
+    MainConfigurationResponse revert_main_configuration = 1001;
 
     // Hall Effect Key Configuration Commands: 1100 to 1199
 
-    HEKeyConfigurationResponse get_he_key_configuration = 1100;
-    SetHEKeyConfigurationResponse set_he_key_configuration = 1101;
-    HEKeyConfigurationResponse save_he_key_configuration = 1102;
-    HEKeyConfigurationResponse revert_he_key_configuration = 1103;
+    SetHEKeyConfigurationResponse set_he_key_configuration = 1100;
+    RevertHEKeyConfigurationResponse revert_he_key_configuration = 1101;
 
     // RGB Underglow LED Configuration Commands: 1200 to 1299
     // RGB Switch LED Configuration Commands: 1300 to 1399

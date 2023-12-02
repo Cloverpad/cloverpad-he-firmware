@@ -13,13 +13,22 @@ message FirmwareVersionResponse {
   int32 version = 1;
 }
 
+// Gets the full keypad configuration that is currently active.
+message GetConfiguration {}
+
+// Saves the full keypad configuration that is currently active.
+message SaveConfiguration {}
+
 // Command for resetting the whole keypad to its default configuration.
 message FactoryReset {}
 
 // Response which contains the full configuration currently in use.
 message FullConfigurationResponse {
+  // Whether there are any configuration changes that haven't been saved to EEPROM.
+  bool modified = 1;
+
   // The main configuration currently in use.
-  MainConfiguration main_configuration = 1;
+  MainConfiguration main_configuration = 10;
 
   // The hall effect key configurations currently in use.
   repeated HEKeyConfiguration he_key_configurations = 11;

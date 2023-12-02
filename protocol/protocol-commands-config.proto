@@ -4,9 +4,6 @@ package protocol;
 
 import "protocol-config.proto";
 
-// Command for getting the main configuration that is currently active.
-message GetMainConfiguration {}
-
 // Command for setting the main configuration that is currently active.
 message SetMainConfiguration {
   // The new main configuration to use.
@@ -14,23 +11,14 @@ message SetMainConfiguration {
   MainConfiguration configuration = 1;
 }
 
-// Command for saving any unsaved changes made to the main configuration.
-message SaveMainConfiguration {}
-
 // Command for reverting any unsaved changes made to the main configuration.
 message RevertMainConfiguration {}
 
-// Common response for `GetMainConfiguration`, `SetMainConfiguration`, `SaveMainConfiguration` and `RevertMainConfiguration`.
+// Common response for `SetMainConfiguration` and `RevertMainConfiguration`.
 message MainConfigurationResponse {
-  // Whether this configuration needs saving to EEPROM.
-  bool dirty = 1;
-
   // The main configuration currently in use.
   MainConfiguration main_configuration = 2;
 }
-
-// Command for getting the current hall effect key configurations for all keys.
-message GetHEKeyConfiguration {}
 
 // Command for setting the hall effect key configuration for all keys or a specific key.
 message SetHEKeyConfiguration {
@@ -44,21 +32,6 @@ message SetHEKeyConfiguration {
   HEKeyConfiguration configuration = 2;
 }
 
-// Command for saving any unsaved changes made to all hall effect key configurations.
-message SaveHEKeyConfiguration {}
-
-// Command for reverting any unsaved changes made to all hall effect key configurations.
-message RevertHEKeyConfiguration {}
-
-// Common response for `GetHEKeyConfiguration`, `SaveHEKeyConfiguration` and `RevertHEKeyConfiguration`.
-message HEKeyConfigurationResponse {
-  // Whether this configuration needs saving to EEPROM.
-  bool dirty = 1;
-
-  // The current configurations for each hall effect key.
-  repeated HEKeyConfiguration configurations = 2;
-}
-
 // Response for the `SetHEKeyConfiguration` command.
 message SetHEKeyConfigurationResponse {
   reserved "row_index", "col_index", "position";  // Reserved for keypads with more than one row
@@ -68,4 +41,13 @@ message SetHEKeyConfigurationResponse {
 
   // The new configuration in use.
   HEKeyConfiguration configuration = 2;
+}
+
+// Command for reverting any unsaved changes made to all hall effect key configurations.
+message RevertHEKeyConfiguration {}
+
+// Response for the `RevertHEKeyConfiguration` command.
+message RevertHEKeyConfigurationResponse {
+  // The current configurations for each hall effect key.
+  repeated HEKeyConfiguration configurations = 2;
 }
