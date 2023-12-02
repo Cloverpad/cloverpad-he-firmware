@@ -3,8 +3,9 @@
 #include <pb_decode.h>
 #include <pb_encode.h>
 
-#include <protocol-commands.pb.h>
 #include <constants.h>
+#include <protocol-commands.pb.h>
+#include <serial/handlers/config_commands.h>
 #include <serial/handlers/main_commands.h>
 #include <serial/serial_handler.h>
 
@@ -61,7 +62,7 @@ void SerialHandler::handle_next_command(ConfigurationHandler &configuration_hand
     case protocol_Command_firmware_version_tag:
         handle_firmware_version(response);
         break;
-    
+
     case protocol_Command_get_configuration_tag:
         handle_get_configuration(response, configuration_handler);
         break;
@@ -72,6 +73,22 @@ void SerialHandler::handle_next_command(ConfigurationHandler &configuration_hand
 
     case protocol_Command_factory_reset_tag:
         handle_factory_reset(response, configuration_handler);
+        break;
+
+    case protocol_Command_set_main_configuration_tag:
+        handle_set_main_configuration(response, configuration_handler, command.type.set_main_configuration);
+        break;
+
+    case protocol_Command_revert_main_configuration_tag:
+        handle_revert_main_configuration(response, configuration_handler);
+        break;
+
+    case protocol_Command_set_he_key_configuration_tag:
+        handle_set_he_key_configuration(response, configuration_handler, input_handler, command.type.set_he_key_configuration);
+        break;
+
+    case protocol_Command_revert_he_key_configuration_tag:
+        handle_revert_he_key_configuration(response, configuration_handler, input_handler);
         break;
 
     default:
