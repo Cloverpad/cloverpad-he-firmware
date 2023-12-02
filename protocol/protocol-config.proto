@@ -39,25 +39,25 @@ message HEKeyConfiguration {
 
   // The actuation point to use when rapid trigger is disabled, in millimetres.
   // Must be in the range [0.1, 4.0].
-  double actuation_point = 200;
+  double actuation_point_mm = 200;
 
   // Configuration (Rapid Trigger Enabled): 300 to 399
 
   // The upward sensitivity to use when rapid trigger is enabled, in millimetres.
   // Must be in the range [0.1, 2.0].
-  double up_sensitivity = 300;
+  double up_sensitivity_mm = 300;
 
   // The downward sensitivity to use when rapid trigger is enabled, in millimetres.
   // Must be in the range [0.1, 2.0].
-  double down_sensitivity = 301;
+  double down_sensitivity_mm = 301;
 
   // The upper deadzone to use when rapid trigger is enabled, in millimetres.
   // Must be in the range [0.0, 4.0] and less than `lower_deadzone_mm`.
   // The key is always considered as released when above this threshold.
-  double upper_deadzone = 302;
+  double upper_deadzone_mm = 302;
 
   // The lower deadzone to use when rapid trigger is enabled, in millimetres.
   // Must be in the range [0.0, 4.0] and greater than `upper_deadzone_mm`.
   // The key is always considered as pressed when below this threshold.
-  double lower_deadzone = 303;
+  double lower_deadzone_mm = 303;
 }

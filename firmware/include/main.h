@@ -2,7 +2,7 @@
 
 #include <configuration/configuration_handler.h>
 #include <input_handler.h>
-#include <serial_handler.h>
+#include <serial/serial_handler.h>
 
 /// @brief The configuration manager currently in use.
 ConfigurationHandler configuration_manager = ConfigurationHandler();

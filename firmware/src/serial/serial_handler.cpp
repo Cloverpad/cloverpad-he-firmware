@@ -5,14 +5,15 @@
 
 #include <protocol-commands.pb.h>
 #include <constants.h>
-#include <serial_handler.h>
+#include <serial/handlers/main_commands.h>
+#include <serial/serial_handler.h>
 
-void SerialHandler::send_response(protocol_Response *response)
+void SerialHandler::send_response(protocol_Response &response)
 {
     // Send how many encoded bytes are present (as unsigned 32-bit integer)
     // Then send the actual data bytes
     pb_ostream_t ostream = pb_ostream_from_buffer(this->command_buffer, sizeof(this->command_buffer));
-    pb_encode(&ostream, protocol_Response_fields, response);
+    pb_encode(&ostream, protocol_Response_fields, &response);
 
     Serial.write((uint8_t)(ostream.bytes_written & 0xFF));
     Serial.write((uint8_t)(ostream.bytes_written >> 8));
@@ -22,7 +23,7 @@ void SerialHandler::send_response(protocol_Response *response)
     Serial.write(this->command_buffer, ostream.bytes_written);
 }
 
-void SerialHandler::handle_next_command(ConfigurationHandler &configuration_manager, InputHandler &input_handler)
+void SerialHandler::handle_next_command(ConfigurationHandler &configuration_handler, InputHandler &input_handler)
 {
     int available_bytes = Serial.available();
     if (available_bytes <= 0)
@@ -50,7 +51,7 @@ void SerialHandler::handle_next_command(ConfigurationHandler &configuration_mana
     {
         // Something went wrong while decoding
         response.code = protocol_ResponseCode_DECODE_ERROR;
-        send_response(&response);
+        send_response(response);
         return;
     }
 
@@ -58,22 +59,25 @@ void SerialHandler::handle_next_command(ConfigurationHandler &configuration_mana
     switch (command.which_type)
     {
     case protocol_Command_firmware_version_tag:
-    {
-        protocol_FirmwareVersionResponse firmware_version_response = protocol_FirmwareVersionResponse_init_zero;
-        firmware_version_response.version = FIRMWARE_VERSION;
-
-        response.code = protocol_ResponseCode_SUCCESS;
-        response.which_data = protocol_Response_firmware_version_tag;
-        response.data.firmware_version = firmware_version_response;
+        handle_firmware_version(response);
         break;
-    }
+    
+    case protocol_Command_get_configuration_tag:
+        handle_get_configuration(response, configuration_handler);
+        break;
+
+    case protocol_Command_save_configuration_tag:
+        handle_save_configuration(response, configuration_handler);
+        break;
+
+    case protocol_Command_factory_reset_tag:
+        handle_factory_reset(response, configuration_handler);
+        break;
 
     default:
-    {
         response.code = protocol_ResponseCode_UNSUPPORTED_COMMAND;
         break;
     }
-    }
 
-    send_response(&response);
+    send_response(response);
 }

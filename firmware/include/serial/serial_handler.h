@@ -12,7 +12,7 @@ private:
     /// @brief Buffer used for reading commands.
     uint8_t command_buffer[256] = {};
 
-    void send_response(protocol_Response *response);
+    void send_response(protocol_Response &response);
 
 public:
     /// @brief Attempts to handle the next command (if one is available).

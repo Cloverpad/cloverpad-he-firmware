@@ -72,7 +72,7 @@ message Response {
     FirmwareVersionResponse firmware_version = 100;
     FullConfigurationResponse get_configuration = 101;
     FullConfigurationResponse save_configuration = 102;
-    FullConfigurationResponse reset_to_default = 103;
+    FullConfigurationResponse factory_reset = 103;
 
     // State Commands: 200 to 299
 
