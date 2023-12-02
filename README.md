@@ -12,8 +12,8 @@ The repository layout is as follows:
 
 Both the configurator and firmware rely on [Protocol Buffers](https://protobuf.dev/)' code generator to compile correctly.
 
-- On Windows (via [`scoop`](https://github.com/ScoopInstaller/Scoop)):
-  - `scoop install protobuf`
+- Windows (via [`scoop`](https://github.com/ScoopInstaller/Scoop)): `scoop install protobuf`
+- Fedora: `dnf install protobuf-compiler`
 - Manual:
   - Download the latest release of Protocol Buffers from [GitHub](https://github.com/protocolbuffers/protobuf/releases) - pick the asset that matches your OS
   - Unzip the contents to a folder, e.g. `~/.protobuf`
