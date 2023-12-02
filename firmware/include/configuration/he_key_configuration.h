@@ -35,3 +35,8 @@ struct HEKeyConfiguration
     ///       The key is always considered as pressed when below this threshold.
     double lower_deadzone_mm = 3.6;
 };
+
+/// @brief Verifies if a hall effect key configuration is valid.
+/// @param configuration The configuration to validate.
+/// @return True if valid, false otherwise.
+bool verify_he_key_configuration(HEKeyConfiguration &configuration);

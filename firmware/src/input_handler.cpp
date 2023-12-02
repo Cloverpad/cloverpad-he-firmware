@@ -2,6 +2,12 @@
 
 void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
 {
+    // Only process ADC readings if input handler is enabled
+    if (!this->enabled)
+    {
+        return;
+    }
+
     for (size_t i = 0; i < HE_KEY_COUNT; i++)
     {
         uint16_t adc_value = analogRead(HE_KEY_PIN(i));
@@ -18,4 +24,12 @@ void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
     // TODO: Sensor calibration based on configuration
     // TODO: Update current state for each key
     // TODO: Sending HID commands to host
+}
+
+void InputHandler::reset_he_key_states()
+{
+    for (size_t i = 0; i < HE_KEY_COUNT; i++)
+    {
+        this->he_key_states[i] = HEKeyState {};
+    }
 }
