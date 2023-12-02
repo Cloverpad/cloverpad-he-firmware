@@ -32,8 +32,19 @@ void handle_revert_main_configuration(
     protocol_Response &response,
     ConfigurationHandler &configuration_handler)
 {
-    // TODO: Implement
-    response.code = protocol_ResponseCode_UNSUPPORTED_COMMAND;
+    // Load the configuration from EEPROM and replace the main configuration details
+    KeypadConfiguration eeprom_config = configuration_handler.load_keypad_configuration();
+    copy_main_configuration(eeprom_config, configuration_handler.keypad_configuration);
+    configuration_handler.modified = true;
+
+    // Prepare the response to send back to the host
+    protocol_MainConfigurationResponse response_data = protocol_MainConfigurationResponse_init_zero;
+    response_data.has_main_configuration = true;
+    response_data.main_configuration = map_main_configuration(eeprom_config);
+
+    response.code = protocol_ResponseCode_SUCCESS;
+    response.which_data = protocol_Response_revert_main_configuration_tag;
+    response.data.set_main_configuration = response_data;
 }
 
 void handle_set_he_key_configuration(
@@ -100,6 +111,33 @@ void handle_revert_he_key_configuration(
     ConfigurationHandler &configuration_handler,
     InputHandler &input_handler)
 {
-    // TODO: Implement
-    response.code = protocol_ResponseCode_UNSUPPORTED_COMMAND;
+    // Load the configuration from EEPROM and replace the hall effect key configurations
+    // Also pause input handler while these settings are being updated
+    KeypadConfiguration eeprom_config = configuration_handler.load_keypad_configuration();
+    input_handler.enabled = false;
+
+    for (size_t i = 0; i < HE_KEY_COUNT; i++)
+    {
+        configuration_handler.keypad_configuration.he_keys[i] = eeprom_config.he_keys[i];
+    }
+
+    // Reset key states and re-enable input handler
+    input_handler.reset_he_key_states();
+    input_handler.enabled = true;
+
+    // Mark configuration as modified
+    configuration_handler.modified = true;
+
+    // Prepare the response to send back to the host
+    protocol_RevertHEKeyConfigurationResponse response_data = protocol_RevertHEKeyConfigurationResponse_init_zero;
+    response_data.configurations_count = HE_KEY_COUNT;
+
+    for (size_t i = 0; i < HE_KEY_COUNT; i++)
+    {
+        response_data.configurations[i] = map_he_key_configuration(eeprom_config.he_keys[i]);
+    }
+
+    response.code = protocol_ResponseCode_SUCCESS;
+    response.which_data = protocol_Response_revert_he_key_configuration_tag;
+    response.data.revert_he_key_configuration = response_data;
 }

@@ -2,16 +2,17 @@
 
 #include <configuration/configuration_handler.h>
 
-void ConfigurationHandler::load_keypad_configuration()
+KeypadConfiguration ConfigurationHandler::load_keypad_configuration()
 {
     KeypadConfiguration configuration = {};
     EEPROM.get(EEPROM_CONFIGURATION_ADDR, configuration);
 
     if (configuration.configuration_version != CONFIGURATION_VERSION)
     {
-        this->keypad_configuration = get_default_keypad_config();
-        save_keypad_configuration();
+        configuration = get_default_keypad_config();
     }
+
+    return configuration;
 }
 
 bool ConfigurationHandler::save_keypad_configuration()

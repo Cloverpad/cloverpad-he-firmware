@@ -13,11 +13,12 @@ public:
     bool modified = false;
 
     /// @brief The keypad configuration that is currently active.
-    KeypadConfiguration keypad_configuration = get_default_keypad_config();
+    KeypadConfiguration keypad_configuration = load_keypad_configuration();
 
     /// @brief Loads the keypad configuration from EEPROM.
-    /// @note If the configuration version doesn't match the version supported by this firmware, it will be replaced with the default configuration.
-    void load_keypad_configuration();
+    /// @return The keypad configuration currently stored in EEPROM.
+    /// @note If the configuration version doesn't match the version supported by this firmware, the default configuration is returned instead.
+    KeypadConfiguration load_keypad_configuration();
 
     /// @brief Saves the current keypad configuration to EEPROM (if modifications were made).
     /// @return True if the keypad configuration was saved, false if no modifications were made since the last load.
