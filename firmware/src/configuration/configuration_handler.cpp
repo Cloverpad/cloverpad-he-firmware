@@ -1,6 +1,6 @@
 #include <EEPROM.h>
 
-#include <configuration_handler.h>
+#include <configuration/configuration_handler.h>
 
 void ConfigurationHandler::load_keypad_configuration()
 {

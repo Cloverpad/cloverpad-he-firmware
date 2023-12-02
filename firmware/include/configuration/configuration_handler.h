@@ -1,6 +1,7 @@
 #pragma once
 
-#include <configuration.h>
+#include <configuration/he_key_configuration.h>
+#include <configuration/keypad_configuration.h>
 
 /// @brief The address in EEPROM where the keypad configuration is stored.
 #define EEPROM_CONFIGURATION_ADDR 0
@@ -8,11 +9,11 @@
 class ConfigurationHandler
 {
 public:
+    /// @brief Whether the configuration has been modified since it was last saved to EEPROM.
+    bool modified = false;
+
     /// @brief The keypad configuration that is currently active.
     KeypadConfiguration keypad_configuration = get_default_keypad_config();
-
-    /// @brief Whether the keypad configuration was modified via serial commands and require saving to EEPROM.
-    bool modified = false;
 
     /// @brief Loads the keypad configuration from EEPROM.
     /// @note If the configuration version doesn't match the version supported by this firmware, it will be replaced with the default configuration.

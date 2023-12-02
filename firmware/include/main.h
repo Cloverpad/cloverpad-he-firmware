@@ -1,6 +1,6 @@
 #pragma once
 
-#include <configuration_handler.h>
+#include <configuration/configuration_handler.h>
 #include <input_handler.h>
 #include <serial_handler.h>
 

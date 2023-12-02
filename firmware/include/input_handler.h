@@ -1,6 +1,6 @@
 #pragma once
 
-#include <configuration.h>
+#include <configuration/he_key_configuration.h>
 #include <constants.h>
 #include <state.h>
 

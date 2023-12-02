@@ -1,11 +1,7 @@
 #pragma once
 
-#include <stddef.h>
-#include <stdint.h>
-
-#include <constants.h>
-
 /// @brief Holds the configuration for a hall effect key.
+/// @note This is stored in the EEPROM via the `KeyConfiguration` struct.
 struct HEKeyConfiguration
 {
     /// @brief Whether this hall effect key is enabled (i.e. keypresses are sent to the host).
@@ -38,18 +34,4 @@ struct HEKeyConfiguration
     /// @note Must be in the range [0.0, 4.0] and greater than `upper_deadzone_mm`.
     ///       The key is always considered as pressed when below this threshold.
     double lower_deadzone_mm = 3.6;
-};
-
-/// @brief Top-level struct for this keypad's configuration.
-/// @note This is stored in the virtual EEPROM.
-struct KeypadConfiguration
-{
-    /// @brief The configuration version.
-    uint32_t configuration_version = CONFIGURATION_VERSION;
-
-    /// @brief The name of this keypad.
-    char name[64] = "Unnamed Keypad";
-
-    /// @brief The configurations for each hall effect key on this keypad.
-    HEKeyConfiguration he_keys[HE_KEY_COUNT] = {};
 };
