@@ -30,5 +30,5 @@ eframe = { version = "0.24.1", default-features = false }
 env_logger = "0.10"
 image = { version = "0.24", default-features = false }
 rfd = "0.12"
-rustyline = "12"
+rustyline = "13"
 shlex = "1.2"
