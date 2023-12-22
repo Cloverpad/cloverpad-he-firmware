@@ -1209,7 +1209,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "more-more-keypad-configurator"
+name = "cloverpad-configurator"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1219,14 +1219,14 @@ dependencies = [
  "env_logger",
  "image",
  "log",
- "more-more-keypad-core",
+ "cloverpad-core",
  "rfd",
  "rustyline",
  "shlex",
 ]
 
 [[package]]
-name = "more-more-keypad-core"
+name = "cloverpad-core"
 version = "0.1.0"
 dependencies = [
  "log",

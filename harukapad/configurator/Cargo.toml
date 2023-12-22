@@ -7,13 +7,13 @@ version = "0.1.0"
 authors = ["Jon Pacheco <jon.pacheco@tutanota.com>"]
 edition = "2021"
 license = "GPL-3.0"
-repository = "https://github.com/Ace4896/more-more-keypad-software"
-homepage = "https://github.com/Ace4896/more-more-keypad-software"
+repository = "https://github.com/Ace4896/cloverpad-software"
+homepage = "https://github.com/Ace4896/cloverpad-software"
 
 [workspace.dependencies]
 # Keypad Dependencies
-more-more-keypad-configurator = { version = "0.1", path = "app" }
-more-more-keypad-core = { version = "0.1", path = "core" }
+cloverpad-configurator = { version = "0.1", path = "app" }
+cloverpad-core = { version = "0.1", path = "core" }
 
 # Core Project Dependencies
 log = "0.4"

@@ -2,7 +2,7 @@
 # udev rules for the More More Keypad! Project
 #
 # Installation instructions can be found here:
-# https://github.com/Ace4896/more-more-keypad-software/tree/master/firmware
+# https://github.com/Ace4896/cloverpad-software/tree/master/firmware
 ################################################################################
 
 # Raspberry Pi Pico (for development)

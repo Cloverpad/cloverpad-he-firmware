@@ -1,12 +1,12 @@
 # More More Keypad! Firmware
 
-This folder contains the Arduino-based firmware for the [More More Keypad!](https://github.com/Ace4896/more-more-keypad), a 3-key analog keypad for osu! themed after [MORE MORE JUMP!](https://www.sekaipedia.org/wiki/MORE_MORE_JUMP!) from Project Sekai.
+This folder contains the Arduino-based firmware for the [More More Keypad!](https://github.com/Ace4896/cloverpad-hardware), a 3-key analog keypad for osu! themed after [MORE MORE JUMP!](https://www.sekaipedia.org/wiki/MORE_MORE_JUMP!) from Project Sekai.
 
 ## Installing Firmware
 
 To install new firmware:
 
-- Download the `firmware.uf2` file from [releases](https://github.com/Ace4896/more-more-keypad-software/releases)
+- Download the `firmware.uf2` file from [releases](https://github.com/Ace4896/cloverpad-hardware-software/releases)
 - Plug the PCB into your PCB while holding down the `SEL` button
   - **NOTE**: If you're using a Raspberry Pi Pico, hold down the `BOOTSEL` button instead
 - After doing this, the keypad should appear on your PC as a storage device:
@@ -31,7 +31,7 @@ Some additional setup is also needed depending on which OS you're using:
 - Linux:
   - `udev` rules need to be setup for PlatformIO and the keypads for this project:
     - Download a copy of the `udev` rules for [PlatformIO](https://docs.platformio.org/en/latest/core/installation/udev-rules.html)
-    - Make a copy of the `udev` rules for [this project](./udev/99-more-more-keypad.rules)
+    - Make a copy of the `udev` rules for [this project](./udev/99-cloverpad.rules)
     - Copy both `.rules` files into `/etc/udev/rules.d`
     - Restart udev: `sudo udevadm control --reload-rules && sudo udevadm trigger`
 
