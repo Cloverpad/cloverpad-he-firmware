@@ -365,6 +365,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "cloverpad-configurator"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "cloverpad-core",
+ "eframe",
+ "egui",
+ "env_logger",
+ "image",
+ "log",
+ "rfd",
+ "rustyline",
+ "shlex",
+]
+
+[[package]]
+name = "cloverpad-core"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "prost",
+ "prost-build",
+ "serialport",
+ "thiserror",
+]
+
+[[package]]
 name = "cocoa"
 version = "0.24.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1206,34 +1234,6 @@ dependencies = [
  "log",
  "wasi",
  "windows-sys 0.48.0",
-]
-
-[[package]]
-name = "cloverpad-configurator"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "clap",
- "eframe",
- "egui",
- "env_logger",
- "image",
- "log",
- "cloverpad-core",
- "rfd",
- "rustyline",
- "shlex",
-]
-
-[[package]]
-name = "cloverpad-core"
-version = "0.1.0"
-dependencies = [
- "log",
- "prost",
- "prost-build",
- "serialport",
- "thiserror",
 ]
 
 [[package]]
