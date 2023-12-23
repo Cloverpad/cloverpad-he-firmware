@@ -1,5 +1,5 @@
 use clap::Parser;
-use more_more_keypad_core::models::{self, Keypad};
+use cloverpad_core::models::{self, Keypad};
 
 /// Starts the interactive shell for configuring keypads.
 pub fn start_interactive_shell() -> anyhow::Result<()> {
@@ -111,7 +111,7 @@ impl ShellCommand {
     }
 
     /// Helper function for printing an error that occurred on the keypad.
-    fn print_keypad_error(response: more_more_keypad_core::error::Result<models::Response>) {
+    fn print_keypad_error(response: cloverpad_core::error::Result<models::Response>) {
         match response {
             Ok(models::Response { code, .. }) => {
                 eprintln!(
