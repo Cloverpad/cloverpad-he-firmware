@@ -19,16 +19,16 @@ cloverpad-core = { version = "0.1", path = "core" }
 log = "0.4"
 prost = "0.12"
 prost-build = "0.12"
-serialport = "4.2"
+serialport = "4.3"
 thiserror = "1"
 
 # Configurator Dependencies
 anyhow = "1"
 clap = { version = "4.4", features = ["derive"] }
-egui = "0.24.1"
-eframe = { version = "0.24.1", default-features = false }
-env_logger = "0.10"
+egui = "0.25"
+eframe = { version = "0.25", default-features = false }
+env_logger = "0.11"
 image = { version = "0.24", default-features = false }
-rfd = "0.12"
+rfd = "0.13"
 rustyline = "13"
-shlex = "1.2"
+shlex = "1.3"
