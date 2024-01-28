@@ -28,6 +28,7 @@ Some additional setup is also needed depending on which OS you're using:
 
 - Windows:
   - [Long file paths need to be enabled](https://arduino-pico.readthedocs.io/en/latest/platformio.html#important-steps-for-windows-users-before-installing)
+  - [Use WinUSB drivers for bootloader interface](https://github.com/earlephilhower/arduino-pico/issues/520)
 - Linux:
   - `udev` rules need to be setup for PlatformIO and the keypads for this project:
     - Download a copy of the `udev` rules for [PlatformIO](https://docs.platformio.org/en/latest/core/installation/udev-rules.html)
