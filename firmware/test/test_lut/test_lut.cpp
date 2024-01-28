@@ -20,27 +20,27 @@ void test_lerp_simple(void)
 
     // ADC value of 5 -> 10.0 mm (clamped to lowest value)
     double result = lerp(lut, adc_start, adc_step, 5);
-    TEST_ASSERT_EQUAL(10.0, result);
+    TEST_ASSERT_EQUAL_DOUBLE(10.0, result);
 
     // ADC value of 10 -> 10.0 mm
     result = lerp(lut, adc_start, adc_step, 10);
-    TEST_ASSERT_EQUAL(10.0, result);
+    TEST_ASSERT_EQUAL_DOUBLE(10.0, result);
 
     // ADC value of 15 -> 12.5 mm
     result = lerp(lut, adc_start, adc_step, 15);
-    TEST_ASSERT_EQUAL(12.5, result);
+    TEST_ASSERT_EQUAL_DOUBLE(12.5, result);
 
     // ADC value of 25 -> 17.5 mm
     result = lerp(lut, adc_start, adc_step, 25);
-    TEST_ASSERT_EQUAL(17.5, result);
+    TEST_ASSERT_EQUAL_DOUBLE(17.5, result);
 
     // ADC value of 30 -> 20.0 mm (clamped to largest value)
     result = lerp(lut, adc_start, adc_step, 30);
-    TEST_ASSERT_EQUAL(20.0, result);
+    TEST_ASSERT_EQUAL_DOUBLE(20.0, result);
 
     // ADC value of 35 -> 20.0 mm (clamped to largest value)
     result = lerp(lut, adc_start, adc_step, 35);
-    TEST_ASSERT_EQUAL(20.0, result);
+    TEST_ASSERT_EQUAL_DOUBLE(20.0, result);
 }
 
 void test_generate_reciprocal_lut_simple(void)
@@ -59,10 +59,10 @@ void test_generate_reciprocal_lut_simple(void)
         220     200.0       1.5             6.5
     */
     std::array<double, 4> lut = generate_reciprocal_lut<4>(adc_start, adc_step, a, b, c);
-    TEST_ASSERT_EQUAL(11.0, lut[0]);
-    TEST_ASSERT_EQUAL(8.0, lut[1]);
-    TEST_ASSERT_EQUAL(7.0, lut[2]);
-    TEST_ASSERT_EQUAL(6.5, lut[3]);
+    TEST_ASSERT_EQUAL_DOUBLE(11.0, lut[0]);
+    TEST_ASSERT_EQUAL_DOUBLE(8.0, lut[1]);
+    TEST_ASSERT_EQUAL_DOUBLE(7.0, lut[2]);
+    TEST_ASSERT_EQUAL_DOUBLE(6.5, lut[3]);
 }
 
 void process()
