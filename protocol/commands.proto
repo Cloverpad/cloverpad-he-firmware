@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package protocol;
+package cloverpad;
 
 import "commands-config.proto";
 import "commands-main.proto";

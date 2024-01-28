@@ -9,15 +9,15 @@
 /// @param configuration_handler The current `ConfigurationHandler` instance in use.
 /// @param data The command data.
 void handle_set_main_configuration(
-    protocol_Response &response,
+    cloverpad_Response &response,
     ConfigurationHandler &configuration_handler,
-    protocol_SetMainConfiguration &data);
+    cloverpad_SetMainConfiguration &data);
 
 /// @brief Handles a `RevertMainConfiguration` command.
 /// @param response The response object being sent back to the host.
 /// @param configuration_handler The current `ConfigurationHandler` instance in use.
 void handle_revert_main_configuration(
-    protocol_Response &response,
+    cloverpad_Response &response,
     ConfigurationHandler &configuration_handler);
 
 /// @brief Handles a `SetHEKeyConfiguration` command.
@@ -27,10 +27,10 @@ void handle_revert_main_configuration(
 /// @param data The command data.
 /// @note While this is running, HID commands will not be generated as the key configuration is changing.
 void handle_set_he_key_configuration(
-    protocol_Response &response,
+    cloverpad_Response &response,
     ConfigurationHandler &configuration_handler,
     InputHandler &input_handler,
-    protocol_SetHEKeyConfiguration &data);
+    cloverpad_SetHEKeyConfiguration &data);
 
 /// @brief Handles a `RevertHEKeyConfiguration` command.
 /// @param response The response object being sent back to the host.
@@ -38,6 +38,6 @@ void handle_set_he_key_configuration(
 /// @param input_handler The current `InputHandler` instance in use.
 /// @note While this is running, HID commands will not be generated as the key configuration is changing.
 void handle_revert_he_key_configuration(
-    protocol_Response &response,
+    cloverpad_Response &response,
     ConfigurationHandler &configuration_handler,
     InputHandler &input_handler);

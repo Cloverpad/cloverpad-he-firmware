@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package protocol;
+package cloverpad;
 
 // Holds the current state of a hall effect key.
 message HEKeyState {

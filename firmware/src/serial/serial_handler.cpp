@@ -9,12 +9,12 @@
 #include <serial/handlers/main_commands.h>
 #include <serial/serial_handler.h>
 
-void SerialHandler::send_response(protocol_Response &response)
+void SerialHandler::send_response(cloverpad_Response &response)
 {
     // Send how many encoded bytes are present (as unsigned 32-bit integer)
     // Then send the actual data bytes
     pb_ostream_t ostream = pb_ostream_from_buffer(this->command_buffer, sizeof(this->command_buffer));
-    pb_encode(&ostream, protocol_Response_fields, &response);
+    pb_encode(&ostream, cloverpad_Response_fields, &response);
 
     Serial.write((uint8_t)(ostream.bytes_written & 0xFF));
     Serial.write((uint8_t)(ostream.bytes_written >> 8));
@@ -41,17 +41,17 @@ void SerialHandler::handle_next_command(ConfigurationHandler &configuration_hand
 
     // Then, read in the command bytes
     Serial.readBytes(this->command_buffer, command_length);
-    protocol_Command command = protocol_Command_init_zero;
+    cloverpad_Command command = cloverpad_Command_init_zero;
     pb_istream_t istream = pb_istream_from_buffer(this->command_buffer, command_length);
-    bool status = pb_decode(&istream, protocol_Command_fields, &command);
+    bool status = pb_decode(&istream, cloverpad_Command_fields, &command);
 
     // Initialise output response
-    protocol_Response response = protocol_Response_init_zero;
+    cloverpad_Response response = cloverpad_Response_init_zero;
 
     if (!status)
     {
         // Something went wrong while decoding
-        response.code = protocol_ResponseCode_DECODE_ERROR;
+        response.code = cloverpad_ResponseCode_DECODE_ERROR;
         send_response(response);
         return;
     }
@@ -59,40 +59,40 @@ void SerialHandler::handle_next_command(ConfigurationHandler &configuration_hand
     // Determine the response based on what's been passed in
     switch (command.which_type)
     {
-    case protocol_Command_firmware_version_tag:
+    case cloverpad_Command_firmware_version_tag:
         handle_firmware_version(response);
         break;
 
-    case protocol_Command_get_configuration_tag:
+    case cloverpad_Command_get_configuration_tag:
         handle_get_configuration(response, configuration_handler);
         break;
 
-    case protocol_Command_save_configuration_tag:
+    case cloverpad_Command_save_configuration_tag:
         handle_save_configuration(response, configuration_handler);
         break;
 
-    case protocol_Command_factory_reset_tag:
+    case cloverpad_Command_factory_reset_tag:
         handle_factory_reset(response, configuration_handler);
         break;
 
-    case protocol_Command_set_main_configuration_tag:
+    case cloverpad_Command_set_main_configuration_tag:
         handle_set_main_configuration(response, configuration_handler, command.type.set_main_configuration);
         break;
 
-    case protocol_Command_revert_main_configuration_tag:
+    case cloverpad_Command_revert_main_configuration_tag:
         handle_revert_main_configuration(response, configuration_handler);
         break;
 
-    case protocol_Command_set_he_key_configuration_tag:
+    case cloverpad_Command_set_he_key_configuration_tag:
         handle_set_he_key_configuration(response, configuration_handler, input_handler, command.type.set_he_key_configuration);
         break;
 
-    case protocol_Command_revert_he_key_configuration_tag:
+    case cloverpad_Command_revert_he_key_configuration_tag:
         handle_revert_he_key_configuration(response, configuration_handler, input_handler);
         break;
 
     default:
-        response.code = protocol_ResponseCode_UNSUPPORTED_COMMAND;
+        response.code = cloverpad_ResponseCode_UNSUPPORTED_COMMAND;
         break;
     }
 

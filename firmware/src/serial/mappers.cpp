@@ -23,16 +23,16 @@ void copy_he_key_configuration(HEKeyConfiguration &source, HEKeyConfiguration &t
     target.lower_deadzone_mm = source.lower_deadzone_mm;
 }
 
-protocol_MainConfiguration map_main_configuration(KeypadConfiguration &keypad_configuration)
+cloverpad_MainConfiguration map_main_configuration(KeypadConfiguration &keypad_configuration)
 {
-    protocol_MainConfiguration mapped = protocol_MainConfiguration_init_zero;
+    cloverpad_MainConfiguration mapped = cloverpad_MainConfiguration_init_zero;
     mapped.configuration_version = keypad_configuration.configuration_version;
     strcpy(mapped.name, keypad_configuration.name);
 
     return mapped;
 }
 
-KeypadConfiguration map_main_configuration(protocol_MainConfiguration &main_configuration)
+KeypadConfiguration map_main_configuration(cloverpad_MainConfiguration &main_configuration)
 {
     KeypadConfiguration mapped = {};
     mapped.configuration_version = FIRMWARE_VERSION;
@@ -41,9 +41,9 @@ KeypadConfiguration map_main_configuration(protocol_MainConfiguration &main_conf
     return mapped;
 }
 
-protocol_HEKeyConfiguration map_he_key_configuration(HEKeyConfiguration &he_key_configuration)
+cloverpad_HEKeyConfiguration map_he_key_configuration(HEKeyConfiguration &he_key_configuration)
 {
-    protocol_HEKeyConfiguration mapped = protocol_HEKeyConfiguration_init_zero;
+    cloverpad_HEKeyConfiguration mapped = cloverpad_HEKeyConfiguration_init_zero;
     mapped.enabled = he_key_configuration.enabled;
     mapped.keycode = he_key_configuration.keycode;
     mapped.rapid_trigger = he_key_configuration.rapid_trigger;
@@ -56,7 +56,7 @@ protocol_HEKeyConfiguration map_he_key_configuration(HEKeyConfiguration &he_key_
     return mapped;
 }
 
-HEKeyConfiguration map_he_key_configuration(protocol_HEKeyConfiguration &he_key_configuration)
+HEKeyConfiguration map_he_key_configuration(cloverpad_HEKeyConfiguration &he_key_configuration)
 {
     HEKeyConfiguration mapped = {};
     mapped.enabled = he_key_configuration.enabled;
@@ -71,9 +71,9 @@ HEKeyConfiguration map_he_key_configuration(protocol_HEKeyConfiguration &he_key_
     return mapped;
 }
 
-protocol_FullConfigurationResponse map_full_configuration(KeypadConfiguration &keypad_configuration, bool modified)
+cloverpad_FullConfigurationResponse map_full_configuration(KeypadConfiguration &keypad_configuration, bool modified)
 {
-    protocol_FullConfigurationResponse mapped = protocol_FullConfigurationResponse_init_zero;
+    cloverpad_FullConfigurationResponse mapped = cloverpad_FullConfigurationResponse_init_zero;
     mapped.modified = modified;
 
     mapped.has_main_configuration = true;

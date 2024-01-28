@@ -1,1 +1,1 @@
-protocol.GetHEKeyStateResponse.states   max_count:3
+cloverpad.GetHEKeyStateResponse.states   max_count:3

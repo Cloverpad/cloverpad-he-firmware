@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package protocol;
+package cloverpad;
 
 // Holds the main fields in the top-level configuration.
 message MainConfiguration {
