@@ -1,6 +1,6 @@
-# More More Keypad! Firmware
+# Cloverpad HE Firmware
 
-This folder contains the Arduino-based firmware for the [More More Keypad!](https://github.com/Ace4896/cloverpad-hardware), a 3-key analog keypad for osu! themed after [MORE MORE JUMP!](https://www.sekaipedia.org/wiki/MORE_MORE_JUMP!) from Project Sekai.
+This folder contains the Arduino-based firmware for the [Cloverpad HE](https://github.com/Cloverpad), a 3-key hall effect keypad for osu! themed after [MORE MORE JUMP!](https://www.sekaipedia.org/wiki/MORE_MORE_JUMP!) from Project Sekai.
 
 ## Installing Firmware
 
@@ -15,7 +15,7 @@ To install new firmware:
 
 - Copy this `firmware.uf2` file to the storage device
 
-![Copy Firmware to PCB](./docs/copy-firmware-to-pcb.jpg)
+![Copy Firmware to PCB](./docs/copy-firmware-to-pcb.png)
 
 ## Setting Up Development Environment
 
@@ -44,14 +44,14 @@ Then open this `firmware` folder in VS Code to initialise the PlatformIO project
 If you're installing this firmware on your Pico or Keypad PCB for the first time, you'll need to build and upload the contents manually. Otherwise, PlatformIO will fail to upload the compiled firmware to the PCB. You only need to do this once (or if you install any non-Arduino firmware).
 
 - Open VS Code in the `firmware` folder to initialise the PlatformIO project locally
-- In the PlatformIO tab on the sidebar, expand the `harukapad-dev` category and run `Build`:
+- In the PlatformIO tab on the sidebar, expand the `cloverpad-he` category and run `Build`:
 
-![Build harukapad-dev](./docs/build-harukapad-dev.jpg)
+![Build cloverpad-he](./docs/build-cloverpad-he.png)
 
 - In the File Explorer tab on the sidebar, there should be a `.pio` folder
-  - Navigate to `.pio/build/harukapad-dev` and locate the `firmware.uf2` file
+  - Navigate to `.pio/build/cloverpad-he` and locate the `firmware.uf2` file
   - Right click `firmware.uf2` and reveal in file explorer
 
-![firmware.uf2 Location](./docs/firmware-uf2-location.jpg)
+![firmware.uf2 Location](./docs/firmware-uf2-location.png)
 
 Then follow the instructions [above for installing the firmware](#installing-firmware) using this `firmware.uf2` instead of one from GitHub releases.
