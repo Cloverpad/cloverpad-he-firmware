@@ -3,6 +3,13 @@
 #include <array>
 #include <cstdint>
 
+/// @brief Perform linear interpolation on the provided ADC values.
+/// @tparam N The number of elements in the lookup table
+/// @param lut The lookup table mapping ADC values to a predefined function
+/// @param adc_start The starting ADC value
+/// @param adc_step The difference between ADC values in the lookup table
+/// @param adc_val The input ADC value
+/// @return The mapped value after linear interpolation, clamped to the min/max of the lookup table
 template <std::size_t N>
 constexpr double lerp(std::array<double, N> lut, uint16_t adc_start, uint16_t adc_step, uint16_t adc_val)
 {
