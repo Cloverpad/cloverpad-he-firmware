@@ -23,6 +23,7 @@ The firmware project is setup using PlatformIO and the Arduino-Pico framework. I
 
 - [VS Code](https://code.visualstudio.com/)
 - [PlatformIO Extension for VS Code](https://platformio.org/)
+- (Unit Tests Only) [Native Toolchain](https://docs.platformio.org/en/stable/platforms/native.html)
 
 Some additional setup is also needed depending on which OS you're using:
 
