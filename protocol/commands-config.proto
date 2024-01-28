@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package protocol;
 
-import "protocol-config.proto";
+import "config.proto";
 
 // Command for setting the main configuration that is currently active.
 message SetMainConfiguration {

@@ -4,7 +4,7 @@
 #include <pb_encode.h>
 
 #include <constants.h>
-#include <protocol-commands.pb.h>
+#include <commands.pb.h>
 #include <serial/handlers/config_commands.h>
 #include <serial/handlers/main_commands.h>
 #include <serial/serial_handler.h>

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package protocol;
 
-import "protocol-state.proto";
+import "state.proto";
 
 // Command for getting the current state for each hall effect key.
 message GetHEKeyState {}

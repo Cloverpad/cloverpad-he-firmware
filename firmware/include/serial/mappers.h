@@ -2,7 +2,7 @@
 
 #include <configuration/he_key_configuration.h>
 #include <configuration/keypad_configuration.h>
-#include <protocol-commands.pb.h>
+#include <commands.pb.h>
 
 /// @brief Copies the main configuration details between structs.
 /// @param source The source configuration.

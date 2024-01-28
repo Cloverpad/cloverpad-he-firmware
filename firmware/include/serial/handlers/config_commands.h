@@ -2,7 +2,7 @@
 
 #include <configuration/configuration_handler.h>
 #include <input_handler.h>
-#include <protocol-commands.pb.h>
+#include <commands.pb.h>
 
 /// @brief Handles a `SetMainConfiguration` command.
 /// @param response The response object being sent back to the host.

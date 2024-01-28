@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package protocol;
 
-import "protocol-config.proto";
+import "config.proto";
 
 // Command for getting the firmware version of the keypad.
 message FirmwareVersion {}

@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package protocol;
 
-import "protocol-commands-config.proto";
-import "protocol-commands-main.proto";
-import "protocol-commands-state.proto";
+import "commands-config.proto";
+import "commands-main.proto";
+import "commands-state.proto";
 
 // Represents the different response codes for a command.
 enum ResponseCode {
@@ -29,7 +29,7 @@ message Command {
 
   oneof type {
     // Top-Level Commands: 100 to 199
-  
+
     FirmwareVersion firmware_version = 100;
     GetConfiguration get_configuration = 101;
     SaveConfiguration save_configuration = 102;

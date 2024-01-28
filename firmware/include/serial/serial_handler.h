@@ -1,6 +1,6 @@
 #pragma once
 
-#include <protocol-commands.pb.h>
+#include <commands.pb.h>
 
 #include <configuration/configuration_handler.h>
 #include <input_handler.h>
