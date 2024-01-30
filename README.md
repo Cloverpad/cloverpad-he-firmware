@@ -40,7 +40,7 @@ Some additional setup is also needed depending on which OS you're using:
 Clone this repository including submodules:
 
 ```bash
-git clone --recurse-submodules git@github.com:Cloverpad/cloverpad-he-firmware.git
+git clone --recurse-submodules https://github.com/Cloverpad/cloverpad-he-firmware.git
 ```
 
 Then open this `firmware` folder in VS Code to initialise the PlatformIO project.
