@@ -37,6 +37,12 @@ Some additional setup is also needed depending on which OS you're using:
     - Copy both `.rules` files into `/etc/udev/rules.d`
     - Restart `udev`: `sudo udevadm control --reload-rules && sudo udevadm trigger`
 
+Clone this repository including submodules:
+
+```bash
+git clone --recurse-submodules git@github.com:Cloverpad/cloverpad-he-firmware.git
+```
+
 Then open this `firmware` folder in VS Code to initialise the PlatformIO project.
 
 ### Uploading Compiled Firmware via PlatformIO
