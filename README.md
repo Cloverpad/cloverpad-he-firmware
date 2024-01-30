@@ -55,3 +55,7 @@ If you're installing this firmware on your Pico or Keypad PCB for the first time
 ![firmware.uf2 Location](./docs/firmware-uf2-location.png)
 
 Then follow the instructions [above for installing the firmware](#installing-firmware) using this `firmware.uf2` instead of one from GitHub releases.
+
+## License
+
+This project is licensed under [GPL-3.0](./LICENSE).
