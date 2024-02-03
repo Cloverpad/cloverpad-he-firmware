@@ -46,14 +46,14 @@ constexpr double lerp(std::array<double, N> lut, uint16_t adc_start, uint16_t ad
 /// @param a The value of coefficient `a` in the curve fit
 /// @param b The value of coefficient `b` in the curve fit
 /// @param c The value of coefficient `c` in the curve fit
-/// @return The generated lookup table with N+1 elements
+/// @return The generated lookup table with N elements
 template <std::size_t N>
 constexpr std::array<double, N> generate_reciprocal_lut(uint16_t adc_start, uint16_t adc_step, double a, double b, double c)
 {
     static_assert(N >= 2, "Lookup table must contain at least two elements");
     std::array<double, N> lut = {};
 
-    for (std::size_t i = 0; i <= N; i++)
+    for (std::size_t i = 0; i < N; i++)
     {
         double adc_val = (double)(adc_start + adc_step * i);
         lut[i] = (a / (adc_val - b)) + c;
