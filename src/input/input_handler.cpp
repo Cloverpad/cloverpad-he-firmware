@@ -1,4 +1,4 @@
-#include <input_handler.h>
+#include <input/input_handler.h>
 
 void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
 {

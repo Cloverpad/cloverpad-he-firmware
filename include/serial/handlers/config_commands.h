@@ -1,7 +1,7 @@
 #pragma once
 
 #include <configuration/configuration_handler.h>
-#include <input_handler.h>
+#include <input/input_handler.h>
 #include <commands.pb.h>
 
 /// @brief Handles a `SetMainConfiguration` command.
