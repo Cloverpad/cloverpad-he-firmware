@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <EEPROM.h>
-#include <Keyboard.h>
 
+#include <input/cloverpad_keyboard.h>
 #include <main.h>
 
 /// @brief 1 ms (1000 Hz) Polling Rate
@@ -11,7 +11,7 @@ int usb_hid_poll_interval = 1;
 void setup()
 {
     // Initialise USB interfaces
-    Keyboard.begin();
+    CloverpadKeyboard.begin();
     Serial.begin();
 
     // Initialise EEPROM with 4kB memory
