@@ -36,6 +36,7 @@
 
 #define RECIPROCAL_ADC_TOP 1085 // ADC value at 5.9mm air gap
 #define RECIPROCAL_ADC_BOT 3670 // ADC value at 2.05mm air gap
+#define RECIPROCAL_ADC_RANGE (RECIPROCAL_ADC_TOP - RECIPROCAL_ADC_BOT)
 
 #else
 
@@ -51,5 +52,6 @@
 
 #define RECIPROCAL_ADC_TOP 914  // ADC value at 5.9mm air gap
 #define RECIPROCAL_ADC_BOT 2546 // ADC value at 1.9mm air gap
+#define RECIPROCAL_ADC_RANGE (RECIPROCAL_ADC_TOP - RECIPROCAL_ADC_BOT)
 
 #endif

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <constants.h>
+
 /// @brief Holds the configuration for a hall effect key.
 /// @note This is stored in the EEPROM via the `KeyConfiguration` struct.
 struct HEKeyConfiguration
@@ -12,6 +14,12 @@ struct HEKeyConfiguration
 
     /// @brief Whether rapid trigger is enabled on this hall effect key.
     bool rapid_trigger = false;
+
+    /// @brief The calibrated ADC value when the key is not pressed.
+    uint16_t calibration_adc_top = RECIPROCAL_ADC_TOP;
+
+    /// @brief The calibrated ADC value when the key is pressed.
+    uint16_t calibration_adc_bot = RECIPROCAL_ADC_BOT;
 
     /// @brief The actuation point to use when rapid trigger is disabled, in millimetres.
     /// @note Must be in the range [0.1, 4.0].
