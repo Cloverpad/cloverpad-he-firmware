@@ -14,12 +14,30 @@ void tearDown(void)
 
 void test_update_key_state_rt_upper_deadzone(void)
 {
-    TEST_FAIL();
+    HEKeyConfiguration config = {.rapid_trigger = true,
+                                 .upper_deadzone_mm = 0.5};
+
+    HEKeyState state = {.highest_position_mm = 0.4};
+
+    update_key_state_rt(config, state, 0.3);
+
+    TEST_ASSERT_EQUAL_DOUBLE(0.3, state.last_position_mm);
+    TEST_ASSERT_EQUAL_DOUBLE(0.3, state.highest_position_mm);
+    TEST_ASSERT_FALSE(state.pressed);
 }
 
 void test_update_key_state_rt_lower_deadzone(void)
 {
-    TEST_FAIL();
+    HEKeyConfiguration config = {.rapid_trigger = true,
+                                 .lower_deadzone_mm = 0.5};
+
+    HEKeyState state = {.lowest_position_mm = AIR_GAP_RANGE - 0.4};
+
+    update_key_state_rt(config, state, AIR_GAP_RANGE - 0.2);
+
+    TEST_ASSERT_EQUAL_DOUBLE(AIR_GAP_RANGE - 0.2, state.last_position_mm);
+    TEST_ASSERT_EQUAL_DOUBLE(AIR_GAP_RANGE - 0.2, state.lowest_position_mm);
+    TEST_ASSERT_TRUE(state.pressed);
 }
 
 void test_update_key_state_rt_pressed_below_lowest_point(void)
