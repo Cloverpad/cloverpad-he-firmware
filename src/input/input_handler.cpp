@@ -43,13 +43,21 @@ void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
 
         this->he_key_states[i].last_position_mm = dist_from_top;
 
-        if (he_key_configs[i].rapid_trigger)
+        // Update the state depending on the configuration:
+        // - If key is disabled, ensure it is released
+        // - If rapid trigger is enabled, update based on recent key positions
+        // - If rapid trigger is disabled, update based on actuation point
+        if (!he_key_configs[i].enabled)
+        {
+            CloverpadKeyboard.release(he_key_configs[i].keycode);
+        }
+        else if (he_key_configs[i].rapid_trigger)
         {
             // TODO: Handle state if rapid trigger is enabled
         }
         else
         {
-            // If rapid trigger is disabled, just determine if the key should be pressed
+            // Determine if this key is past the actuation point
             bool pressed = dist_from_top >= he_key_configs[i].actuation_point_mm;
             this->he_key_states[i].pressed = pressed;
 
