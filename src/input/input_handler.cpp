@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include <constants.h>
+#include <he_key_input.h>
 #include <input/cloverpad_keyboard.h>
 #include <input/input_handler.h>
 #include <lerp.h>
@@ -56,59 +57,20 @@ void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
         }
         else if (config->rapid_trigger)
         {
-            // Check if the key is in either deadzone
-            // - Upper deadzone -> ensure key is released
-            // - Lower deadzone -> ensure key is pressed
-            if (dist_from_top <= config->upper_deadzone_mm)
-            {
-                state->highest_position_mm = min(dist_from_top, state->highest_position_mm);
-                state->lowest_position_mm = 0.0;
-                CloverpadKeyboard.release(config->keycode);
-                continue;
-            }
-
-            if (dist_from_top >= AIR_GAP_RANGE - config->lower_deadzone_mm)
-            {
-                state->highest_position_mm = AIR_GAP_RANGE;
-                state->lowest_position_mm = max(dist_from_top, state->lowest_position_mm);
-                CloverpadKeyboard.press(config->keycode);
-                continue;
-            }
-
-            // Release the key if it is currently pressed, and the current position more than 'up_sensitivity' above the lowest position
-            if (state->pressed && dist_from_top <= (state->lowest_position_mm - config->up_sensitivity_mm))
-            {
-                state->highest_position_mm = dist_from_top;
-                state->lowest_position_mm = 0.0;
-                state->pressed = false;
-                CloverpadKeyboard.release(config->keycode);
-                continue;
-            }
-
-            // Press the key if it is currently released, and the current position is more than 'down_sensitivity' below the highest position
-            if (!state->pressed && dist_from_top >= (state->highest_position_mm + config->down_sensitivity_mm))
-            {
-                state->highest_position_mm = AIR_GAP_RANGE;
-                state->lowest_position_mm = dist_from_top;
-                state->pressed = true;
-                CloverpadKeyboard.press(config->keycode);
-                continue;
-            }
+            update_key_state_rt(*config, *state, dist_from_top);
         }
         else
         {
-            // Determine if this key is past the actuation point
-            bool pressed = dist_from_top >= config->actuation_point_mm;
-            this->he_key_states[i].pressed = pressed;
+            update_key_state_fixed(*config, *state, dist_from_top);
+        }
 
-            if (pressed)
-            {
-                CloverpadKeyboard.press(config->keycode);
-            }
-            else
-            {
-                CloverpadKeyboard.release(config->keycode);
-            }
+        if (state->pressed)
+        {
+            CloverpadKeyboard.press(config->keycode);
+        }
+        else
+        {
+            CloverpadKeyboard.release(config->keycode);
         }
     }
 
