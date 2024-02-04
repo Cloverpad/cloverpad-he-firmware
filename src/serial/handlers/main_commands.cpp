@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 #include <serial/handlers/main_commands.h>
 #include <serial/mappers.h>
 

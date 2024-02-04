@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 #include <configuration/he_key_configuration.h>
 #include <configuration/keypad_configuration.h>
 
@@ -27,12 +29,12 @@ public:
     /// @brief Gets the default keycode for a particular key.
     /// @param index The index of the key. This is clamped to the range [0, HE_KEY_COUNT].
     /// @return The default keycode for this key index.
-    char get_default_keycode(size_t index);
+    char get_default_keycode(std::size_t index);
 
     /// @brief Gets the default configuration for a hall effect key.
     /// @param index The index of the hall effect key.
     /// @return The default configuration for this hall effect key, with an assigned keycode (Z, X or C).
-    HEKeyConfiguration get_default_he_key_config(size_t index);
+    HEKeyConfiguration get_default_he_key_config(std::size_t index);
 
     /// @brief Gets the default keypad configuration.
     /// @return The default keypad configuration, including all sub-configurations.

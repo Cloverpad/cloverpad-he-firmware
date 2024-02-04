@@ -76,7 +76,7 @@ void handle_set_he_key_configuration(
     if (!data.has_index)
     {
         // Set for all keys
-        for (size_t i = 0; i < HE_KEY_COUNT; i++)
+        for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
         {
             copy_he_key_configuration(new_config, configuration_handler.keypad_configuration.he_keys[i], false);
         }
@@ -116,7 +116,7 @@ void handle_revert_he_key_configuration(
     KeypadConfiguration eeprom_config = configuration_handler.load_keypad_configuration();
     input_handler.enabled = false;
 
-    for (size_t i = 0; i < HE_KEY_COUNT; i++)
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
         configuration_handler.keypad_configuration.he_keys[i] = eeprom_config.he_keys[i];
     }
@@ -132,7 +132,7 @@ void handle_revert_he_key_configuration(
     cloverpad_RevertHEKeyConfigurationResponse response_data = cloverpad_RevertHEKeyConfigurationResponse_init_zero;
     response_data.configurations_count = HE_KEY_COUNT;
 
-    for (size_t i = 0; i < HE_KEY_COUNT; i++)
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
         response_data.configurations[i] = map_he_key_configuration(eeprom_config.he_keys[i]);
     }

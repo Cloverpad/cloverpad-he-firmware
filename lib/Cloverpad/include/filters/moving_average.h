@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stddef.h>
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 /// @brief Implements a moving average for ADC values.
 class MovingAverage
@@ -14,7 +14,7 @@ private:
     uint16_t *buffer;
 
     /// @brief The index of the next data buffer entry to be replaced.
-    size_t index = 0;
+    std::size_t index = 0;
 
     /// @brief Whether every entry in this moving average has been set at least once.
     bool initialised = false;

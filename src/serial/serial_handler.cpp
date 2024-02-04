@@ -34,10 +34,10 @@ void SerialHandler::handle_next_command(ConfigurationHandler &configuration_hand
 
     // Determine how many bytes are in the command
     Serial.readBytes(this->command_buffer, 4);
-    size_t command_length = (size_t)(this->command_buffer[0]) |
-                            (size_t)(this->command_buffer[1] << 8) |
-                            (size_t)(this->command_buffer[2] << 16) |
-                            (size_t)(this->command_buffer[3] << 24);
+    std::size_t command_length = (std::size_t)(this->command_buffer[0]) |
+                            (std::size_t)(this->command_buffer[1] << 8) |
+                            (std::size_t)(this->command_buffer[2] << 16) |
+                            (std::size_t)(this->command_buffer[3] << 24);
 
     // Then, read in the command bytes
     Serial.readBytes(this->command_buffer, command_length);

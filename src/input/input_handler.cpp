@@ -1,4 +1,9 @@
+#include <Arduino.h>
+
+#include <constants.h>
+#include <input/cloverpad_keyboard.h>
 #include <input/input_handler.h>
+#include <lerp.h>
 
 void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
 {
@@ -8,7 +13,7 @@ void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
         return;
     }
 
-    for (size_t i = 0; i < HE_KEY_COUNT; i++)
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
         uint16_t adc_value = analogRead(HE_KEY_PIN(i));
         this->he_key_states[i].average_reading.push(adc_value);
@@ -21,15 +26,52 @@ void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
         return;
     }
 
-    // TODO: Sensor calibration based on configuration
-    // TODO: Update current state for each key
-    // TODO: Sending HID commands to host
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
+    {
+        // Calibrate the ADC value
+        uint16_t calibrated_adc_value = lerp_adc(
+            (uint16_t)RECIPROCAL_ADC_TOP,
+            (uint16_t)RECIPROCAL_ADC_RANGE,
+            he_key_configs[i].calibration_adc_top,
+            he_key_configs[i].calibration_adc_bot,
+            this->he_key_states[i].average_reading.current_average());
+
+        // Determine the distance from the top of the switch
+        // Clamp this to 0.0mm if it's too far away
+        double current_dist = this->dist_lut.get_distance(calibrated_adc_value);
+        double dist_from_top = max(AIR_GAP_TOP_MM - current_dist, 0.0);
+
+        this->he_key_states[i].last_position_mm = dist_from_top;
+
+        if (he_key_configs[i].rapid_trigger)
+        {
+            // TODO: Handle state if rapid trigger is enabled
+        }
+        else
+        {
+            // If rapid trigger is disabled, just determine if the key should be pressed
+            bool pressed = dist_from_top >= he_key_configs[i].actuation_point_mm;
+            this->he_key_states[i].pressed = pressed;
+
+            if (pressed)
+            {
+                CloverpadKeyboard.press(he_key_configs[i].keycode);
+            }
+            else
+            {
+                CloverpadKeyboard.release(he_key_configs[i].keycode);
+            }
+        }
+    }
+
+    // After all key states have been updated, send the combined report to the host
+    CloverpadKeyboard.sendReport();
 }
 
 void InputHandler::reset_he_key_states()
 {
-    for (size_t i = 0; i < HE_KEY_COUNT; i++)
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
-        this->he_key_states[i] = HEKeyState {};
+        this->he_key_states[i] = HEKeyState{};
     }
 }

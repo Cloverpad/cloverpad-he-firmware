@@ -80,7 +80,7 @@ cloverpad_FullConfigurationResponse map_full_configuration(KeypadConfiguration &
     mapped.main_configuration = map_main_configuration(keypad_configuration);
 
     mapped.he_key_configurations_count = HE_KEY_COUNT;
-    for (size_t i = 0; i < HE_KEY_COUNT; i++)
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
         mapped.he_key_configurations[i] = map_he_key_configuration(keypad_configuration.he_keys[i]);
     }

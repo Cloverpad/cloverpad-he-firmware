@@ -31,4 +31,4 @@ public:
 };
 
 /// @brief The current keyboard configuration to use.
-CloverpadKeyboard_ CloverpadKeyboard;
+extern CloverpadKeyboard_ CloverpadKeyboard;

@@ -29,7 +29,7 @@ bool ConfigurationHandler::save_keypad_configuration()
     return true;
 }
 
-char ConfigurationHandler::get_default_keycode(size_t index)
+char ConfigurationHandler::get_default_keycode(std::size_t index)
 {
     switch (index)
     {
@@ -47,7 +47,7 @@ char ConfigurationHandler::get_default_keycode(size_t index)
     }
 }
 
-HEKeyConfiguration ConfigurationHandler::get_default_he_key_config(size_t index)
+HEKeyConfiguration ConfigurationHandler::get_default_he_key_config(std::size_t index)
 {
     // Clamp the index (just in case)
     if (index >= HE_KEY_COUNT)
@@ -62,7 +62,7 @@ HEKeyConfiguration ConfigurationHandler::get_default_he_key_config(size_t index)
 KeypadConfiguration ConfigurationHandler::get_default_keypad_config()
 {
     KeypadConfiguration configuration = {};
-    for (size_t i = 0; i < HE_KEY_COUNT; i++)
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
         configuration.he_keys[i] = get_default_he_key_config(i);
     }
