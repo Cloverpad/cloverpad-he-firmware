@@ -5,18 +5,9 @@
 /// @brief Modified version of the RP2040 `Keyboard_` class, which sends combined keyboard reports.
 class CloverpadKeyboard_ : public Keyboard_
 {
-private:
-    /// @brief Whether the keyboard report can currently be sent.
-    bool can_send_report = false;
-
 protected:
-    virtual void sendReport(KeyReport *keys) override
-    {
-        if (this->can_send_report)
-        {
-            Keyboard_::sendReport(keys);
-        }
-    }
+    // Override sendReport to no-op, so we only allow sending combined reports
+    virtual void sendReport(KeyReport *keys) override {};
 
 public:
     CloverpadKeyboard_(void){};
@@ -24,9 +15,7 @@ public:
     /// @brief Sends the combined keyboard report.
     void sendReport()
     {
-        this->can_send_report = true;
-        sendReport(&this->_keyReport);
-        this->can_send_report = false;
+        Keyboard_::sendReport(&this->_keyReport);
     }
 };
 
