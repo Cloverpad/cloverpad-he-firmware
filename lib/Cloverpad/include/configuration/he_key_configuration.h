@@ -36,14 +36,14 @@ struct HEKeyConfiguration
     double down_sensitivity_mm = 0.3;
 
     /// @brief The upper deadzone to use when rapid trigger is enabled, in millimetres.
-    /// @note Must be in the range [0.0, 4.0] and less than `lower_deadzone_mm`.
+    /// @note Must be in the range [0.0, AIR_GAP_RANGE], and `lower_deadzone_mm + upper_deadzone_mm <= AIR_GAP_RANGE`.
     ///       The key is always considered as released when above this threshold.
     double upper_deadzone_mm = 0.4;
 
     /// @brief The lower deadzone to use when rapid trigger is enabled, in millimetres.
-    /// @note Must be in the range [0.0, 4.0] and greater than `upper_deadzone_mm`.
+    /// @note Must be in the range [0.0, AIR_GAP_RANGE], and `lower_deadzone_mm + upper_deadzone_mm <= AIR_GAP_RANGE`.
     ///       The key is always considered as pressed when below this threshold.
-    double lower_deadzone_mm = 3.6;
+    double lower_deadzone_mm = 0.4;
 };
 
 /// @brief Verifies if a hall effect key configuration is valid.
