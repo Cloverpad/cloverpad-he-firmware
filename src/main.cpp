@@ -31,7 +31,7 @@ void setup1()
     rp2040.fifo.pop();
 }
 
-/// @brief Main loop for Core 0. Used to handle serial communication and RGB effects.
+/// @brief Main loop for Core 0. Used to handle serial communication.
 void loop()
 {
     serial_handler.handle_next_command(configuration_manager, input_handler);
