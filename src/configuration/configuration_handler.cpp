@@ -4,7 +4,7 @@
 
 KeypadConfiguration ConfigurationHandler::load_keypad_configuration()
 {
-    KeypadConfiguration configuration = {};
+    KeypadConfiguration configuration = {.configuration_version = 0};
     EEPROM.get(EEPROM_CONFIGURATION_ADDR, configuration);
 
     if (configuration.configuration_version != CONFIGURATION_VERSION)
