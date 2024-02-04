@@ -54,12 +54,24 @@ void test_update_key_state_rt_released_outside_down_sensitivity_range(void)
 
 void test_update_key_state_fixed_above_actuation_point(void)
 {
-    TEST_FAIL();
+    HEKeyConfiguration config = {.rapid_trigger = false, .actuation_point_mm = 1.5};
+    HEKeyState state = {};
+
+    update_key_state_fixed(config, state, 1.2);
+
+    TEST_ASSERT_EQUAL_DOUBLE(1.2, state.last_position_mm);
+    TEST_ASSERT_FALSE(state.pressed);
 }
 
 void test_update_key_state_fixed_below_actuation_point(void)
 {
-    TEST_FAIL();
+    HEKeyConfiguration config = {.rapid_trigger = false, .actuation_point_mm = 1.5};
+    HEKeyState state = {};
+
+    update_key_state_fixed(config, state, 1.8);
+
+    TEST_ASSERT_EQUAL_DOUBLE(1.8, state.last_position_mm);
+    TEST_ASSERT_TRUE(state.pressed);
 }
 
 void process()
