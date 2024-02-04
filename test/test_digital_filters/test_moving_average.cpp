@@ -90,17 +90,23 @@ void process()
 
 void setup()
 {
-    // NOTE: Wait for > 2 secs, mainly for boards that don't support software reset via Serial.DTR/RTS
-    delay(2000);
+    pinMode(LED_BUILTIN, OUTPUT);
+    digitalWrite(LED_BUILTIN, HIGH);
+
+    // Wait for serial connection to establish
+    while (!Serial)
+    {
+        delay(10);
+    }
 
     process();
 }
 
 void loop()
 {
-    digitalWrite(25, HIGH);
+    digitalWrite(LED_BUILTIN, HIGH);
     delay(500);
-    digitalWrite(25, LOW);
+    digitalWrite(LED_BUILTIN, LOW);
     delay(500);
 }
 #else
