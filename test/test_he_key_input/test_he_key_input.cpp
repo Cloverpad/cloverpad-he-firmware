@@ -42,32 +42,106 @@ void test_update_key_state_rt_lower_deadzone(void)
 
 void test_update_key_state_rt_pressed_below_lowest_point(void)
 {
-    TEST_FAIL();
+    HEKeyConfiguration config = {.rapid_trigger = true,
+                                 .up_sensitivity_mm = 0.3,
+                                 .upper_deadzone_mm = 0.1,
+                                 .lower_deadzone_mm = 0.1};
+
+    HEKeyState state = {.pressed = true,
+                        .lowest_position_mm = 2.0};
+
+    update_key_state_rt(config, state, 2.2);
+
+    TEST_ASSERT_EQUAL_DOUBLE(2.2, state.last_position_mm);
+    TEST_ASSERT_EQUAL_DOUBLE(2.2, state.lowest_position_mm);
+    TEST_ASSERT_TRUE(state.pressed);
 }
 
 void test_update_key_state_rt_pressed_within_up_sensitivity_range(void)
 {
-    TEST_FAIL();
+    HEKeyConfiguration config = {.rapid_trigger = true,
+                                 .up_sensitivity_mm = 0.3,
+                                 .upper_deadzone_mm = 0.1,
+                                 .lower_deadzone_mm = 0.1};
+
+    HEKeyState state = {.pressed = true,
+                        .lowest_position_mm = 2.0};
+
+    update_key_state_rt(config, state, 1.9);
+
+    TEST_ASSERT_EQUAL_DOUBLE(1.9, state.last_position_mm);
+    TEST_ASSERT_EQUAL_DOUBLE(2.0, state.lowest_position_mm);
+    TEST_ASSERT_TRUE(state.pressed);
 }
 
 void test_update_key_state_rt_pressed_outside_up_sensitivity_range(void)
 {
-    TEST_FAIL();
+    HEKeyConfiguration config = {.rapid_trigger = true,
+                                 .up_sensitivity_mm = 0.3,
+                                 .upper_deadzone_mm = 0.1,
+                                 .lower_deadzone_mm = 0.1};
+
+    HEKeyState state = {.pressed = true,
+                        .lowest_position_mm = 2.0};
+
+    update_key_state_rt(config, state, 1.6);
+
+    TEST_ASSERT_EQUAL_DOUBLE(1.6, state.last_position_mm);
+    TEST_ASSERT_EQUAL_DOUBLE(1.6, state.highest_position_mm);
+    TEST_ASSERT_EQUAL_DOUBLE(0.0, state.lowest_position_mm);
+    TEST_ASSERT_FALSE(state.pressed);
 }
 
 void test_update_key_state_rt_released_above_highest_point(void)
 {
-    TEST_FAIL();
+    HEKeyConfiguration config = {.rapid_trigger = true,
+                                 .down_sensitivity_mm = 0.3,
+                                 .upper_deadzone_mm = 0.1,
+                                 .lower_deadzone_mm = 0.1};
+
+    HEKeyState state = {.pressed = false,
+                        .highest_position_mm = 2.0};
+
+    update_key_state_rt(config, state, 1.8);
+
+    TEST_ASSERT_EQUAL_DOUBLE(1.8, state.last_position_mm);
+    TEST_ASSERT_EQUAL_DOUBLE(1.8, state.highest_position_mm);
+    TEST_ASSERT_FALSE(state.pressed);
 }
 
 void test_update_key_state_rt_released_within_down_sensitivity_range(void)
 {
-    TEST_FAIL();
+    HEKeyConfiguration config = {.rapid_trigger = true,
+                                 .down_sensitivity_mm = 0.3,
+                                 .upper_deadzone_mm = 0.1,
+                                 .lower_deadzone_mm = 0.1};
+
+    HEKeyState state = {.pressed = false,
+                        .highest_position_mm = 2.0};
+
+    update_key_state_rt(config, state, 2.1);
+
+    TEST_ASSERT_EQUAL_DOUBLE(2.1, state.last_position_mm);
+    TEST_ASSERT_EQUAL_DOUBLE(2.0, state.highest_position_mm);
+    TEST_ASSERT_FALSE(state.pressed);
 }
 
 void test_update_key_state_rt_released_outside_down_sensitivity_range(void)
 {
-    TEST_FAIL();
+    HEKeyConfiguration config = {.rapid_trigger = true,
+                                 .down_sensitivity_mm = 0.3,
+                                 .upper_deadzone_mm = 0.1,
+                                 .lower_deadzone_mm = 0.1};
+
+    HEKeyState state = {.pressed = false,
+                        .highest_position_mm = 2.0};
+
+    update_key_state_rt(config, state, 2.4);
+
+    TEST_ASSERT_EQUAL_DOUBLE(2.4, state.last_position_mm);
+    TEST_ASSERT_EQUAL_DOUBLE(AIR_GAP_RANGE, state.highest_position_mm);
+    TEST_ASSERT_EQUAL_DOUBLE(2.4, state.lowest_position_mm);
+    TEST_ASSERT_TRUE(state.pressed);
 }
 
 void test_update_key_state_fixed_above_actuation_point(void)
