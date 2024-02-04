@@ -11,32 +11,34 @@ void tearDown(void)
     // N/A
 }
 
-void test_generate_reciprocal_lut_simple(void)
+void test_reciprocal_lut(void)
 {
-    uint16_t adc_start = 70;
-    uint16_t adc_step = 50;
-    double a = 300.0;
-    double b = 20.0;
-    double c = 5.0;
-
     /*
-        x       (x - b)     a / (x - b)     a / (x - b) + c
-        70      50.0        6.0             11.0
-        120     100.0       3.0             8.0
-        170     150.0       2.0             7.0
-        220     200.0       1.5             6.5
+        a = 300
+        b = 50
+        c = 5
+
+        x       a / (x - b) + c
+        100     11
+        101     10.8823529411765
+        102     10.7692307692308
+        103     10.6603773584906
+        104     10.5555555555556
+        105     10.4545454545455
     */
-    std::array<double, 4> lut = generate_reciprocal_lut<4>(adc_start, adc_step, a, b, c);
-    TEST_ASSERT_EQUAL_DOUBLE(11.0, lut[0]);
-    TEST_ASSERT_EQUAL_DOUBLE(8.0, lut[1]);
-    TEST_ASSERT_EQUAL_DOUBLE(7.0, lut[2]);
-    TEST_ASSERT_EQUAL_DOUBLE(6.5, lut[3]);
+    auto lut = ReciprocalDistanceLUT<100, 105>(300.0, 50.0, 5.0);
+    TEST_ASSERT_EQUAL_DOUBLE(11, lut.get_distance(100));
+    TEST_ASSERT_EQUAL_DOUBLE(10.8823529411765, lut.get_distance(101));
+    TEST_ASSERT_EQUAL_DOUBLE(10.7692307692308, lut.get_distance(102));
+    TEST_ASSERT_EQUAL_DOUBLE(10.6603773584906, lut.get_distance(103));
+    TEST_ASSERT_EQUAL_DOUBLE(10.5555555555556, lut.get_distance(104));
+    TEST_ASSERT_EQUAL_DOUBLE(10.4545454545455, lut.get_distance(105));
 }
 
 void process()
 {
     UNITY_BEGIN();
-    RUN_TEST(test_generate_reciprocal_lut_simple);
+    RUN_TEST(test_reciprocal_lut);
     UNITY_END();
 }
 
