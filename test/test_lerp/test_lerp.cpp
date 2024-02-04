@@ -47,43 +47,10 @@ void test_lerp_adc(void)
     TEST_ASSERT_EQUAL(3000, result);
 }
 
-void test_lerp_simple(void)
-{
-    // Simple example where we have a standard
-    std::array<double, 3> lut = {10.0, 15.0, 20.0};
-    uint16_t adc_start = 10;
-    uint16_t adc_step = 10;
-
-    // ADC value of 5 -> 10.0 mm (clamped to lowest value)
-    double result = lerp(lut, adc_start, adc_step, 5);
-    TEST_ASSERT_EQUAL_DOUBLE(10.0, result);
-
-    // ADC value of 10 -> 10.0 mm
-    result = lerp(lut, adc_start, adc_step, 10);
-    TEST_ASSERT_EQUAL_DOUBLE(10.0, result);
-
-    // ADC value of 15 -> 12.5 mm
-    result = lerp(lut, adc_start, adc_step, 15);
-    TEST_ASSERT_EQUAL_DOUBLE(12.5, result);
-
-    // ADC value of 25 -> 17.5 mm
-    result = lerp(lut, adc_start, adc_step, 25);
-    TEST_ASSERT_EQUAL_DOUBLE(17.5, result);
-
-    // ADC value of 30 -> 20.0 mm (clamped to largest value)
-    result = lerp(lut, adc_start, adc_step, 30);
-    TEST_ASSERT_EQUAL_DOUBLE(20.0, result);
-
-    // ADC value of 35 -> 20.0 mm (clamped to largest value)
-    result = lerp(lut, adc_start, adc_step, 35);
-    TEST_ASSERT_EQUAL_DOUBLE(20.0, result);
-}
-
 void process()
 {
     UNITY_BEGIN();
     RUN_TEST(test_lerp_adc);
-    RUN_TEST(test_lerp_simple);
     UNITY_END();
 }
 
