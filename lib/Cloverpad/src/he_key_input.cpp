@@ -38,7 +38,7 @@ void update_key_state_rt(HEKeyConfiguration &config, HEKeyState &state, double d
     }
     else
     {
-        // If key is currently pressed and current position is more than 'down_sensitivity' below the highest position, press it
+        // If key is currently released and current position is more than 'down_sensitivity' below the highest position, press it
         // Otherwise, just keep track of the highest position
         if (dist_from_top >= (state.highest_position_mm + config.down_sensitivity_mm))
         {
@@ -48,7 +48,7 @@ void update_key_state_rt(HEKeyConfiguration &config, HEKeyState &state, double d
         }
         else
         {
-            state.highest_position_mm = std::min(AIR_GAP_RANGE, dist_from_top);
+            state.highest_position_mm = std::min(state.highest_position_mm, dist_from_top);
         }
     }
 }
