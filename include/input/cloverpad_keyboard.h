@@ -7,7 +7,7 @@ class CloverpadKeyboard_ : public Keyboard_
 {
 protected:
     // Override sendReport to no-op, so we only allow sending combined reports
-    virtual void sendReport(KeyReport *keys) override {};
+    virtual void sendReport(KeyReport *) override {};
 
 public:
     CloverpadKeyboard_(void){};
