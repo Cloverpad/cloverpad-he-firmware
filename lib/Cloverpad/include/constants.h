@@ -33,6 +33,7 @@
 // Doing this here will make calculations easier later, e.g. deadzones
 #define AIR_GAP_TOP_MM 5.9  // Air gap when switch is not pressed
 #define AIR_GAP_BOT_MM 2.05 // Air gap when switch is pressed
+#define AIR_GAP_RANGE (AIR_GAP_TOP_MM - AIR_GAP_BOT_MM)
 
 #define RECIPROCAL_ADC_TOP 1085 // ADC value at 5.9mm air gap
 #define RECIPROCAL_ADC_BOT 3670 // ADC value at 2.05mm air gap
@@ -49,6 +50,7 @@
 
 #define AIR_GAP_TOP_MM 5.9 // Air gap when switch is not pressed
 #define AIR_GAP_BOT_MM 1.9 // Air gap when switch is pressed
+#define AIR_GAP_RANGE (AIR_GAP_TOP_MM - AIR_GAP_BOT_MM)
 
 #define RECIPROCAL_ADC_TOP 914  // ADC value at 5.9mm air gap
 #define RECIPROCAL_ADC_BOT 2546 // ADC value at 1.9mm air gap

@@ -28,46 +28,86 @@ void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
 
     for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
+        HEKeyConfiguration *config = &he_key_configs[i];
+        HEKeyState *state = &this->he_key_states[i];
+
         // Calibrate the ADC value
         uint16_t calibrated_adc_value = lerp_adc(
             (uint16_t)RECIPROCAL_ADC_TOP,
             (uint16_t)RECIPROCAL_ADC_RANGE,
-            he_key_configs[i].calibration_adc_top,
-            he_key_configs[i].calibration_adc_bot,
-            this->he_key_states[i].average_reading.current_average());
+            config->calibration_adc_top,
+            config->calibration_adc_bot,
+            state->average_reading.current_average());
 
         // Determine the distance from the top of the switch
         // Clamp this to 0.0mm if it's too far away
         double current_dist = this->dist_lut.get_distance(calibrated_adc_value);
         double dist_from_top = max(AIR_GAP_TOP_MM - current_dist, 0.0);
 
-        this->he_key_states[i].last_position_mm = dist_from_top;
+        state->last_position_mm = dist_from_top;
 
         // Update the state depending on the configuration:
         // - If key is disabled, ensure it is released
         // - If rapid trigger is enabled, update based on recent key positions
         // - If rapid trigger is disabled, update based on actuation point
-        if (!he_key_configs[i].enabled)
+        if (!config->enabled)
         {
-            CloverpadKeyboard.release(he_key_configs[i].keycode);
+            CloverpadKeyboard.release(config->keycode);
         }
-        else if (he_key_configs[i].rapid_trigger)
+        else if (config->rapid_trigger)
         {
-            // TODO: Handle state if rapid trigger is enabled
+            // Check if the key is in either deadzone
+            // - Upper deadzone -> ensure key is released
+            // - Lower deadzone -> ensure key is pressed
+            if (dist_from_top <= config->upper_deadzone_mm)
+            {
+                state->highest_position_mm = min(dist_from_top, state->highest_position_mm);
+                state->lowest_position_mm = 0.0;
+                CloverpadKeyboard.release(config->keycode);
+                continue;
+            }
+
+            if (dist_from_top >= AIR_GAP_RANGE - config->lower_deadzone_mm)
+            {
+                state->highest_position_mm = AIR_GAP_RANGE;
+                state->lowest_position_mm = max(dist_from_top, state->lowest_position_mm);
+                CloverpadKeyboard.press(config->keycode);
+                continue;
+            }
+
+            // Release the key if it is currently pressed, and the current position more than 'up_sensitivity' above the lowest position
+            if (state->pressed && dist_from_top <= (state->lowest_position_mm - config->up_sensitivity_mm))
+            {
+                state->highest_position_mm = dist_from_top;
+                state->lowest_position_mm = 0.0;
+                state->pressed = false;
+                CloverpadKeyboard.release(config->keycode);
+                continue;
+            }
+
+            // Press the key if it is currently released, and the current position is more than 'down_sensitivity' below the highest position
+            if (!state->pressed && dist_from_top >= (state->highest_position_mm + config->down_sensitivity_mm))
+            {
+                state->highest_position_mm = AIR_GAP_RANGE;
+                state->lowest_position_mm = dist_from_top;
+                state->pressed = true;
+                CloverpadKeyboard.press(config->keycode);
+                continue;
+            }
         }
         else
         {
             // Determine if this key is past the actuation point
-            bool pressed = dist_from_top >= he_key_configs[i].actuation_point_mm;
+            bool pressed = dist_from_top >= config->actuation_point_mm;
             this->he_key_states[i].pressed = pressed;
 
             if (pressed)
             {
-                CloverpadKeyboard.press(he_key_configs[i].keycode);
+                CloverpadKeyboard.press(config->keycode);
             }
             else
             {
-                CloverpadKeyboard.release(he_key_configs[i].keycode);
+                CloverpadKeyboard.release(config->keycode);
             }
         }
     }
