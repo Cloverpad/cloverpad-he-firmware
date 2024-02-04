@@ -1,4 +1,4 @@
-#include <moving_average.h>
+#include <filters/moving_average.h>
 
 MovingAverage::MovingAverage(uint16_t samples)
 {

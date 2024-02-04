@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-#include <moving_average.h>
+#include <filters/moving_average.h>
 
 /// @brief The highest possible position for a hall effect key in millimetres.
 #define HIGHEST_POSITION_MM 0.0
