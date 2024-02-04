@@ -46,7 +46,7 @@ constexpr double lerp(std::array<double, N> lut, uint16_t adc_start, uint16_t ad
     }
 
     // Determine the index of the entry that is less or equal to this ADC value
-    size_t adc_index_lo = (adc_val - adc_start) / adc_step;
+    std::size_t adc_index_lo = (adc_val - adc_start) / adc_step;
 
     // If the specified value is larger than the ending value, clamp to highest lookup value
     if (adc_index_lo >= N - 1)
