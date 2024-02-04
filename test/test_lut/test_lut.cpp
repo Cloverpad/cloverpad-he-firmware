@@ -129,7 +129,7 @@ void loop()
     delay(500);
 }
 #else
-int main(int argc, char **argv)
+int main(void)
 {
     process();
     return 0;
