@@ -21,6 +21,11 @@ const uint16_t MIN_ADC = 745;
 /// @brief The maximum possible ADC value at 3.3V for the DRV5056.
 const uint16_t MAX_ADC = 3846;
 
+/// @brief The minimum distance between the auto calibration max/min values before inputs can be generated using them
+#ifndef MIN_AUTO_CALIBRATION_DIST_MM
+#define MIN_AUTO_CALIBRATION_DIST_MM 2.0
+#endif
+
 #ifdef DRV5056A3
 
 // Use DRV5056A3 values if specified

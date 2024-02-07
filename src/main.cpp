@@ -40,5 +40,7 @@ void loop()
 /// @brief Main loop for Core 1. Used to handle reading hall effect inputs and sending HID commands.
 void loop1()
 {
-    input_handler.handle_next(configuration_manager.keypad_configuration.he_keys);
+    input_handler.handle_next(
+        configuration_manager.keypad_configuration.he_keys,
+        configuration_manager.keypad_configuration.use_auto_calibration);
 }

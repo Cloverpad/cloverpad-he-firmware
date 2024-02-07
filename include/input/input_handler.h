@@ -35,7 +35,8 @@ private:
 
     /// @brief Handles the next set of input readings, updates key states and sends HID commands.
     /// @param he_key_configs The current hall effect key configurations
-    void handle_normal_input(HEKeyConfiguration he_key_configs[HE_KEY_COUNT]);
+    /// @param use_auto_calibration Whether to use the automatic calibration values when mapping ADC readings
+    void handle_normal_input(HEKeyConfiguration he_key_configs[HE_KEY_COUNT], bool use_auto_calibration);
 
     /// @brief Handles the next set of input readings and updates the current top/bottom ADC calibration values.
     void handle_manual_calibration();
@@ -54,7 +55,8 @@ public:
 
     /// @brief Handles the next operation for the current input handler mode
     /// @param he_key_configs The current hall effect key configurations
-    void handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT]);
+    /// @param use_auto_calibration Whether to use the automatic calibration values when mapping ADC readings
+    void handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT], bool use_auto_calibration);
 
     /// @brief Applies the manual calibration values to the hall effect key configurations
     /// @param he_key_configs The current hall effect key configurations

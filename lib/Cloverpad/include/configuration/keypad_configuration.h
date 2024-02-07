@@ -15,6 +15,9 @@ struct KeypadConfiguration
     /// @brief The name of this keypad.
     char name[64] = "Unnamed Keypad";
 
+    /// @brief Whether to use the automatic calibration values when mapping ADC readings
+    bool use_auto_calibration = true;
+
     /// @brief The configurations for each hall effect key on this keypad.
     HEKeyConfiguration he_keys[HE_KEY_COUNT] = {};
 };
