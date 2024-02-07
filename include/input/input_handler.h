@@ -26,8 +26,12 @@ private:
 
     InputHandlerMode mode = InputHandlerMode::NormalInput;
 
+    uint16_t adc_buffer[HE_KEY_COUNT] = {};
     uint16_t calibration_min_values[HE_KEY_COUNT] = {};
     uint16_t calibration_max_values[HE_KEY_COUNT] = {};
+
+    /// @brief Reads the current analog values and stores them in the private buffer.
+    void read_analog_values();
 
     /// @brief Handles the next set of input readings, updates key states and sends HID commands.
     /// @param he_key_configs The current hall effect key configurations

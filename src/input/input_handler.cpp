@@ -34,6 +34,14 @@ void InputHandler::change_mode(InputHandlerMode new_mode)
     this->reset();
 }
 
+void InputHandler::read_analog_values()
+{
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
+    {
+        this->adc_buffer[i] = HE_KEY_PIN(i);
+    }
+}
+
 void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
 {
     switch (this->mode)
@@ -55,11 +63,12 @@ void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
 
 void InputHandler::handle_normal_input(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
 {
-    // Read the current ADC values for each key
+    // Read the current ADC values for each key and update averages
+    this->read_analog_values();
+
     for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
-        uint16_t adc_value = analogRead(HE_KEY_PIN(i));
-        this->he_key_states[i].average_reading.push(adc_value);
+        this->he_key_states[i].average_reading.push(this->adc_buffer[i]);
     }
 
     // Only continuing processing if the moving averages have initialised
@@ -123,10 +132,19 @@ void InputHandler::handle_normal_input(HEKeyConfiguration he_key_configs[HE_KEY_
 void InputHandler::handle_manual_calibration()
 {
     // Read the current ADC values for each key
+    // Then update the min/max ADC values with the averages
+    this->read_analog_values();
+
     for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
-        uint16_t adc_value = analogRead(HE_KEY_PIN(i));
-        this->he_key_states[i].average_reading.push(adc_value);
+        this->he_key_states[i].average_reading.push(this->adc_buffer[i]);
+    }
+
+    // Only continuing processing if the moving averages have initialised
+    // Assumes that all of them use the same number of samples
+    if (!this->he_key_states[0].average_reading.is_initialised())
+    {
+        return;
     }
 
     // Update the min/max ADC values
