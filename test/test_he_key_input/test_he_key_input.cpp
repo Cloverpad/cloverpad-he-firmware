@@ -1,5 +1,6 @@
 #include <unity.h>
 
+#include <constants.h>
 #include <he_key_input.h>
 
 void setUp(void)
@@ -10,6 +11,39 @@ void setUp(void)
 void tearDown(void)
 {
     // N/A
+}
+
+std::function<double(uint16_t)> create_valid_dist_func(uint16_t min_adc)
+{
+    // If ADC is equal to minimum ADC, specify a distance above the minimum allowed
+    // Otherwise, specify 0
+    return [min_adc](uint16_t adc)
+    {
+        return adc == min_adc ? MIN_AUTO_CALIBRATION_DIST_MM + 1.0 : 0.0;
+    };
+}
+
+void test_auto_calibration_values_usable_uninitialised(void)
+{
+    // Specify "uninitialised" ADC values, i.e. min >= max
+    std::function<double(uint16_t)> valid_dist_func = create_valid_dist_func(1000);
+    TEST_ASSERT_FALSE(auto_calibration_values_usable(1000, 900, valid_dist_func));
+    TEST_ASSERT_FALSE(auto_calibration_values_usable(1000, 1000, valid_dist_func));
+}
+
+void test_auto_calibration_values_usable_short_distance(void)
+{
+    // Specify distances that are too close together, i.e. within MIN_AUTO_CALIBRATION_MM
+    std::function<double(uint16_t)> invalid_dist_func = [](uint16_t)
+    { return 1.0; };
+
+    TEST_ASSERT_FALSE(auto_calibration_values_usable(1000, 2000, invalid_dist_func));
+}
+
+void test_auto_calibration_values_usable_initialised_with_far_distance(void)
+{
+    // Specify "initialised" ADC values that are far enough away
+    TEST_ASSERT_TRUE(auto_calibration_values_usable(1000, 2000, create_valid_dist_func(1000)));
 }
 
 void test_update_key_state_rt_upper_deadzone(void)
@@ -235,6 +269,10 @@ void test_update_key_state_fixed_below_actuation_point(void)
 void process()
 {
     UNITY_BEGIN();
+
+    RUN_TEST(test_auto_calibration_values_usable_uninitialised);
+    RUN_TEST(test_auto_calibration_values_usable_short_distance);
+    RUN_TEST(test_auto_calibration_values_usable_initialised_with_far_distance);
 
     RUN_TEST(test_update_key_state_rt_upper_deadzone);
     RUN_TEST(test_update_key_state_rt_lower_deadzone);
