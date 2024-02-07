@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cstdint>
-
 #include <constants.h>
 #include <filters/moving_average.h>
 
