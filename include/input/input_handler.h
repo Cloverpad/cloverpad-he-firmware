@@ -3,7 +3,7 @@
 #include <configuration/he_key_configuration.h>
 #include <constants.h>
 #include <lut/reciprocal_lut.h>
-#include <state.h>
+#include <state/he_key_state.h>
 
 /// @brief Represents the different modes that the input handler can be in.
 enum InputHandlerMode

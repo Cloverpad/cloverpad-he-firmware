@@ -3,7 +3,7 @@
 #include <functional>
 
 #include <configuration/he_key_configuration.h>
-#include <state.h>
+#include <state/he_key_state.h>
 
 /// @brief Determines if the specified auto-calibration values are usable.
 /// @param max_adc_value The current maximum ADC value for auto calibration
