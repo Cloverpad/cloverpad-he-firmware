@@ -1,5 +1,8 @@
-#include <lerp.h>
+#include <cstdint>
+
 #include <unity.h>
+
+#include <utils.h>
 
 void setUp(void)
 {
@@ -9,6 +12,23 @@ void setUp(void)
 void tearDown(void)
 {
     // N/A
+}
+
+void test_clamp(void)
+{
+    TEST_ASSERT_EQUAL(5, clamp(5, 1, 10));
+    TEST_ASSERT_EQUAL(7, clamp(5, 7, 10));
+    TEST_ASSERT_EQUAL(3, clamp(5, 1, 3));
+}
+
+void test_is_between(void)
+{
+    TEST_ASSERT_TRUE(is_between(1, 1, 10));
+    TEST_ASSERT_TRUE(is_between(5, 1, 10));
+    TEST_ASSERT_TRUE(is_between(10, 1, 10));
+
+    TEST_ASSERT_FALSE(is_between(0, 1, 10));
+    TEST_ASSERT_FALSE(is_between(11, 1, 10));
 }
 
 void test_lerp_adc(void)
@@ -50,6 +70,8 @@ void test_lerp_adc(void)
 void process()
 {
     UNITY_BEGIN();
+    RUN_TEST(test_clamp);
+    RUN_TEST(test_is_between);
     RUN_TEST(test_lerp_adc);
     UNITY_END();
 }

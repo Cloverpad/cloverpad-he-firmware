@@ -4,7 +4,6 @@
 #include <he_key_input.h>
 #include <input/cloverpad_keyboard.h>
 #include <input/input_handler.h>
-#include <lerp.h>
 #include <utils.h>
 
 void InputHandler::reset()
