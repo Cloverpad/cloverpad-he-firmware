@@ -71,7 +71,7 @@ void handle_set_he_key_configuration(
 
     // Determine if we need to set this configuration for all keys or a specific key
     // Also pause input handler while these settings are being updated
-    input_handler.enabled = false;
+    input_handler.change_mode(InputHandlerMode::Disabled);
 
     if (!data.has_index)
     {
@@ -88,8 +88,7 @@ void handle_set_he_key_configuration(
     }
 
     // Reset key states and re-enable input handler
-    input_handler.reset_he_key_states();
-    input_handler.enabled = true;
+    input_handler.change_mode(InputHandlerMode::NormalInput);
 
     // Mark configuration as modified
     configuration_handler.modified = true;
@@ -114,7 +113,7 @@ void handle_revert_he_key_configuration(
     // Load the configuration from EEPROM and replace the hall effect key configurations
     // Also pause input handler while these settings are being updated
     KeypadConfiguration eeprom_config = configuration_handler.load_keypad_configuration();
-    input_handler.enabled = false;
+    input_handler.change_mode(InputHandlerMode::Disabled);
 
     for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
@@ -122,8 +121,7 @@ void handle_revert_he_key_configuration(
     }
 
     // Reset key states and re-enable input handler
-    input_handler.reset_he_key_states();
-    input_handler.enabled = true;
+    input_handler.change_mode(InputHandlerMode::NormalInput);
 
     // Mark configuration as modified
     configuration_handler.modified = true;

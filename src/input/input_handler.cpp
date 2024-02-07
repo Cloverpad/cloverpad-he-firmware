@@ -6,14 +6,53 @@
 #include <input/input_handler.h>
 #include <lerp.h>
 
-void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
+void InputHandler::reset()
 {
-    // Only process ADC readings if input handler is enabled
-    if (!this->enabled)
+    // Release any keys that are currently pressed
+    CloverpadKeyboard.releaseAll();
+    CloverpadKeyboard.sendReport();
+
+    // Reset all key states
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
+    {
+        this->he_key_states[i] = HEKeyState{};
+    }
+}
+
+void InputHandler::change_mode(InputHandlerMode new_mode)
+{
+    // If the new mode is different, release all keys and reset key state
+    if (new_mode == this->mode)
     {
         return;
     }
 
+    this->mode = new_mode;
+    this->reset();
+}
+
+void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
+{
+    switch (this->mode)
+    {
+    case InputHandlerMode::Disabled:
+        return;
+        break;
+
+    case InputHandlerMode::ManualCalibration:
+        this->handle_manual_calibration();
+        break;
+
+    case InputHandlerMode::NormalInput:
+    default:
+        this->handle_normal_input(he_key_configs);
+        break;
+    }
+}
+
+void InputHandler::handle_normal_input(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
+{
+    // Read the current ADC values for each key
     for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
         uint16_t adc_value = analogRead(HE_KEY_PIN(i));
@@ -21,7 +60,7 @@ void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
     }
 
     // Only continuing processing if the moving averages have initialised
-    // Assumes that all of them use the same number of samples.
+    // Assumes that all of them use the same number of samples
     if (!this->he_key_states[0].average_reading.is_initialised())
     {
         return;
@@ -78,10 +117,12 @@ void InputHandler::handle_next(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
     CloverpadKeyboard.sendReport();
 }
 
-void InputHandler::reset_he_key_states()
+void InputHandler::handle_manual_calibration()
 {
-    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
-    {
-        this->he_key_states[i] = HEKeyState{};
-    }
+    // TODO: Implement value capturing for manual calibration
+}
+
+void InputHandler::apply_manual_calibration(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
+{
+    // TODO: Implement applying of manual calibration
 }
