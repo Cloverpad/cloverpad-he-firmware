@@ -2,6 +2,7 @@
 
 #include <cstdint>
 
+#include <constants.h>
 #include <filters/moving_average.h>
 
 /// @brief The number of samples in the moving average for each key.
