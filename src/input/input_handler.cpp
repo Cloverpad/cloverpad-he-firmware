@@ -86,30 +86,20 @@ void InputHandler::handle_normal_input(HEKeyConfiguration he_key_configs[HE_KEY_
 
         // Update the ADC values for auto calibration
         uint16_t avg_adc_value = state->average_reading.current_average();
-        this->calibration_max_values[i] = std::max(avg_adc_value, this->calibration_max_values[i]);
         this->calibration_min_values[i] = std::min(avg_adc_value, this->calibration_min_values[i]);
+        this->calibration_max_values[i] = std::max(avg_adc_value, this->calibration_max_values[i]);
 
         // Calibrate the ADC value
         uint16_t calibrated_adc_value;
 
         if (use_auto_calibration)
         {
-            // If auto calibration values are used, only use them if:
-            // - They appear to be initialised (i.e. max > min)
-            // - There is at least a 2.0mm gap between them
-            uint16_t auto_calibration_max_value = this->calibration_max_values[i];
-            uint16_t auto_calibration_min_value = this->calibration_min_values[i];
-
-            if (auto_calibration_max_value <= auto_calibration_min_value)
-            {
-                continue;
-            }
-
-            // NOTE: This is distance from the sensor, i.e. lower ADC value = further away from sensor
-            double dist_from_sensor_hi = this->dist_lut.get_distance(auto_calibration_min_value);
-            double dist_from_sensor_lo = this->dist_lut.get_distance(auto_calibration_max_value);
-
-            if (dist_from_sensor_hi - dist_from_sensor_lo <= 2.0)
+            // If the auto calibration values aren't usable at the moment, skip updating key states
+            if (!auto_calibration_values_usable(
+                    this->calibration_min_values[i],
+                    this->calibration_max_values[i],
+                    [this](uint16_t adc)
+                    { return this->dist_lut.get_distance(adc); }))
             {
                 continue;
             }
@@ -118,8 +108,8 @@ void InputHandler::handle_normal_input(HEKeyConfiguration he_key_configs[HE_KEY_
             calibrated_adc_value = lerp_adc(
                 (uint16_t)RECIPROCAL_ADC_TOP,
                 (uint16_t)RECIPROCAL_ADC_RANGE,
-                auto_calibration_min_value,
-                auto_calibration_max_value,
+                this->calibration_min_values[i],
+                this->calibration_max_values[i],
                 avg_adc_value);
         }
         else
@@ -193,8 +183,8 @@ void InputHandler::handle_manual_calibration()
     for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
         uint16_t avg_adc_value = this->he_key_states[i].average_reading.current_average();
-        this->calibration_max_values[i] = std::max(this->calibration_max_values[i], avg_adc_value);
         this->calibration_min_values[i] = std::min(this->calibration_min_values[i], avg_adc_value);
+        this->calibration_max_values[i] = std::max(this->calibration_max_values[i], avg_adc_value);
     }
 }
 

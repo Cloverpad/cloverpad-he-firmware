@@ -1,6 +1,16 @@
 #include <algorithm>
 
+#include <constants.h>
 #include <he_key_input.h>
+
+bool auto_calibration_values_usable(uint16_t min_adc_value, uint16_t max_adc_value, std::function<double(uint16_t)> dist_from_sensor)
+{
+    // Check that:
+    // - They appear to be initialised (max > min)
+    // - Distance between them is >= minimum auto calibration distance
+    return max_adc_value > min_adc_value &&
+           dist_from_sensor(min_adc_value) - dist_from_sensor(max_adc_value) >= MIN_AUTO_CALIBRATION_DIST_MM;
+}
 
 void update_key_state_rt(HEKeyConfiguration &config, HEKeyState &state, double dist_from_top)
 {

@@ -22,8 +22,6 @@ enum InputHandlerMode
 class InputHandler
 {
 private:
-    ReciprocalDistanceLUT<MIN_ADC, MAX_ADC> dist_lut = ReciprocalDistanceLUT<MIN_ADC, MAX_ADC>(RECIPROCAL_COEFF_A, RECIPROCAL_COEFF_B, RECIPROCAL_COEFF_C);
-
     InputHandlerMode mode = InputHandlerMode::NormalInput;
 
     uint16_t adc_buffer[HE_KEY_COUNT] = {};
@@ -42,6 +40,9 @@ private:
     void handle_manual_calibration();
 
 public:
+    /// @brief The distance lookup table used by this input handler.
+    ReciprocalDistanceLUT<MIN_ADC, MAX_ADC> dist_lut = ReciprocalDistanceLUT<MIN_ADC, MAX_ADC>(RECIPROCAL_COEFF_A, RECIPROCAL_COEFF_B, RECIPROCAL_COEFF_C);
+
     /// @brief The current states for each hall effect key.
     HEKeyState he_key_states[HE_KEY_COUNT] = {};
 
