@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include <constants.h>
-#include <he_key_input.h>
+#include <input/he_key_input.h>
 #include <input/cloverpad_keyboard.h>
 #include <input/input_handler.h>
 #include <utils.h>

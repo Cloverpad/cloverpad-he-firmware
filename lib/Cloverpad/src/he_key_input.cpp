@@ -1,7 +1,7 @@
 #include <algorithm>
 
 #include <constants.h>
-#include <he_key_input.h>
+#include <input/he_key_input.h>
 
 bool auto_calibration_values_usable(uint16_t min_adc_value, uint16_t max_adc_value, std::function<double(uint16_t)> dist_from_sensor)
 {
