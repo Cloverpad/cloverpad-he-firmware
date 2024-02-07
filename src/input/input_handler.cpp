@@ -5,6 +5,7 @@
 #include <input/cloverpad_keyboard.h>
 #include <input/input_handler.h>
 #include <lerp.h>
+#include <utils.h>
 
 void InputHandler::reset()
 {
@@ -12,9 +13,11 @@ void InputHandler::reset()
     CloverpadKeyboard.releaseAll();
     CloverpadKeyboard.sendReport();
 
-    // Reset all key states
+    // Reset manual calibration min/max values and key states
     for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
+        this->calibration_min_values[i] = MAX_ADC;
+        this->calibration_max_values[i] = MIN_ADC;
         this->he_key_states[i] = HEKeyState{};
     }
 }
@@ -119,10 +122,34 @@ void InputHandler::handle_normal_input(HEKeyConfiguration he_key_configs[HE_KEY_
 
 void InputHandler::handle_manual_calibration()
 {
-    // TODO: Implement value capturing for manual calibration
+    // Read the current ADC values for each key
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
+    {
+        uint16_t adc_value = analogRead(HE_KEY_PIN(i));
+        this->he_key_states[i].average_reading.push(adc_value);
+    }
+
+    // Update the min/max ADC values
+    // Clamp the ADC value to avoid overflowing
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
+    {
+        uint16_t avg_adc_value = clamp(
+            this->he_key_states[i].average_reading.current_average(),
+            MIN_ADC,
+            MAX_ADC);
+
+        this->calibration_max_values[i] = std::max(this->calibration_max_values[i], avg_adc_value);
+        this->calibration_min_values[i] = std::min(this->calibration_min_values[i], avg_adc_value);
+    }
 }
 
 void InputHandler::apply_manual_calibration(HEKeyConfiguration he_key_configs[HE_KEY_COUNT])
 {
-    // TODO: Implement applying of manual calibration
+    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
+    {
+        // Minimum ADC value = calibration for top position (i.e. further from sensor)
+        // Maximum ADC value = calibration for bottom position (i.e. closer to sensor)
+        he_key_configs[i].calibration_adc_top = this->calibration_min_values[i];
+        he_key_configs[i].calibration_adc_bot = this->calibration_max_values[i];
+    }
 }

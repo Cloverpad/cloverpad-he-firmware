@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 /// @brief The current firmware version as an unsigned 32-bit integer, in YYYYMMDD format.
 #define FIRMWARE_VERSION 20231126
 
@@ -14,10 +16,10 @@
 #define HE_KEY_PIN(index) A2 - index
 
 /// @brief The ADC value at 3.3V for the DRV5056 when there is no magnetic field.
-#define MIN_ADC 745
+const uint16_t MIN_ADC = 745;
 
 /// @brief The maximum possible ADC value at 3.3V for the DRV5056.
-#define MAX_ADC 3846
+const uint16_t MAX_ADC = 3846;
 
 #ifdef DRV5056A3
 
