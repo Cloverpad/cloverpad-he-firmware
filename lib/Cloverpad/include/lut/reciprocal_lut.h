@@ -3,6 +3,8 @@
 #include <array>
 #include <cstdint>
 
+#include <utils.h>
+
 /// @brief Wrapper over a distance lookup table with ADC step 1 and a reciprocal curve fit.
 /// @tparam Start The starting ADC value
 /// @tparam End The ending ADC value
@@ -36,15 +38,7 @@ public:
     {
         // Clamp ADC value and retrieve from index
         // No additional interpolation is required as ADC step is 1
-        if (calibrated_adc_value < Start)
-        {
-            calibrated_adc_value = Start;
-        }
-        else if (calibrated_adc_value > End)
-        {
-            calibrated_adc_value = End;
-        }
-
+        calibrated_adc_value = clamp(calibrated_adc_value, Start, End);
         return this->lut[calibrated_adc_value - Start];
     }
 };
