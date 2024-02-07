@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <functional>
 
 #include <configuration/he_key_configuration.h>
