@@ -16,7 +16,7 @@ struct HEKeyState
     bool pressed = false;
 
     /// @brief The moving average for this hall effect key's ADC readings.
-    MovingAverage average_reading = MovingAverage(MOVING_AVERAGE_SAMPLES);
+    MovingAverage<MOVING_AVERAGE_SAMPLES> average_reading = MovingAverage<MOVING_AVERAGE_SAMPLES>();
 
     /// @brief The last calculated position for this key, which is used for determining the next state of the key.
     double last_position_mm = 0.0;
