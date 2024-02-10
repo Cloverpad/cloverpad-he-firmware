@@ -1,6 +1,6 @@
 #pragma once
 
-#include <configuration/configuration_handler.hpp>
+#include <configuration_handler.hpp>
 #include <input/cloverpad_keyboard.hpp>
 #include <input/input_handler.hpp>
 #include <serial/serial_handler.hpp>
