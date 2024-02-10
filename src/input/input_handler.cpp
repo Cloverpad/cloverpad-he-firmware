@@ -1,10 +1,10 @@
 #include <Arduino.h>
 
-#include <constants.h>
-#include <input/he_key_input.h>
-#include <input/cloverpad_keyboard.h>
-#include <input/input_handler.h>
-#include <utils.h>
+#include <constants.hpp>
+#include <input/he_key_input.hpp>
+#include <input/cloverpad_keyboard.hpp>
+#include <input/input_handler.hpp>
+#include <utils.hpp>
 
 void InputHandler::reset()
 {

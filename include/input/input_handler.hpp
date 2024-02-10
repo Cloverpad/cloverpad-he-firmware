@@ -1,9 +1,9 @@
 #pragma once
 
-#include <configuration/he_key_configuration.h>
-#include <constants.h>
-#include <lut/reciprocal_lut.h>
-#include <state/he_key_state.h>
+#include <configuration/he_key_configuration.hpp>
+#include <constants.hpp>
+#include <lut/reciprocal_lut.hpp>
+#include <state/he_key_state.hpp>
 
 /// @brief Represents the different modes that the input handler can be in.
 enum InputHandlerMode

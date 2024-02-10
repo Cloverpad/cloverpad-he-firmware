@@ -1,7 +1,7 @@
 #pragma once
 
-#include <configuration/he_key_configuration.h>
-#include <configuration/keypad_configuration.h>
+#include <configuration/he_key_configuration.hpp>
+#include <configuration/keypad_configuration.hpp>
 #include <commands.pb.h>
 
 /// @brief Copies the main configuration details between structs.

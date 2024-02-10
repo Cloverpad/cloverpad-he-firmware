@@ -1,7 +1,7 @@
 #include <unity.h>
 
-#include <constants.h>
-#include <input/he_key_input.h>
+#include <constants.hpp>
+#include <input/he_key_input.hpp>
 
 void setUp(void)
 {

@@ -2,8 +2,8 @@
 
 #include <cstdint>
 
-#include <configuration/he_key_configuration.h>
-#include <constants.h>
+#include <configuration/he_key_configuration.hpp>
+#include <constants.hpp>
 
 /// @brief Top-level struct for this keypad's configuration.
 /// @note This is stored in the EEPROM.

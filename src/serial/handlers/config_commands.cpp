@@ -1,5 +1,5 @@
-#include <serial/handlers/config_commands.h>
-#include <serial/mappers.h>
+#include <serial/handlers/config_commands.hpp>
+#include <serial/mappers.hpp>
 
 void handle_set_main_configuration(
     cloverpad_Response &response,

@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include <constants.h>
+#include <constants.hpp>
 
 /// @brief Holds the configuration for a hall effect key.
 /// @note This is stored in the EEPROM via the `KeyConfiguration` struct.

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <configuration/configuration_handler.h>
-#include <input/cloverpad_keyboard.h>
-#include <input/input_handler.h>
-#include <serial/serial_handler.h>
+#include <configuration/configuration_handler.hpp>
+#include <input/cloverpad_keyboard.hpp>
+#include <input/input_handler.hpp>
+#include <serial/serial_handler.hpp>
 
 /// @brief The current keyboard configuration to use.
 CloverpadKeyboard_ CloverpadKeyboard;

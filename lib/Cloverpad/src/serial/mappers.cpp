@@ -1,6 +1,6 @@
 #include <algorithm>
 
-#include <serial/mappers.h>
+#include <serial/mappers.hpp>
 
 void copy_main_configuration(KeypadConfiguration &source, KeypadConfiguration &target)
 {

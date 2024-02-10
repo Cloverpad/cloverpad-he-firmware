@@ -1,4 +1,4 @@
-#include <filters/moving_average.h>
+#include <filters/moving_average.hpp>
 #include <unity.h>
 
 void setUp(void)

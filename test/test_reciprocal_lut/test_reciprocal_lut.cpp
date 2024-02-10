@@ -1,4 +1,4 @@
-#include <lut/reciprocal_lut.h>
+#include <lut/reciprocal_lut.hpp>
 #include <unity.h>
 
 void setUp(void)

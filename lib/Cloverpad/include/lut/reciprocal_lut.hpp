@@ -3,7 +3,7 @@
 #include <array>
 #include <cstdint>
 
-#include <utils.h>
+#include <utils.hpp>
 
 /// @brief Wrapper over a distance lookup table with ADC step 1 and a reciprocal curve fit.
 /// @tparam Start The starting ADC value

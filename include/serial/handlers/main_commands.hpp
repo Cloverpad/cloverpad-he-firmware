@@ -1,6 +1,6 @@
 #pragma once
 
-#include <configuration/configuration_handler.h>
+#include <configuration/configuration_handler.hpp>
 #include <commands.pb.h>
 
 /// @brief Handles a `FirmwareVersion` command.

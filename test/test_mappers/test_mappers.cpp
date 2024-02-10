@@ -1,4 +1,4 @@
-#include <serial/mappers.h>
+#include <serial/mappers.hpp>
 #include <unity.h>
 
 void setUp(void)

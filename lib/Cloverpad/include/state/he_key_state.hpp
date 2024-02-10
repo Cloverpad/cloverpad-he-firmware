@@ -1,7 +1,7 @@
 #pragma once
 
-#include <constants.h>
-#include <filters/moving_average.h>
+#include <constants.hpp>
+#include <filters/moving_average.hpp>
 
 /// @brief The number of samples in the moving average for each key.
 #ifndef MOVING_AVERAGE_SAMPLES

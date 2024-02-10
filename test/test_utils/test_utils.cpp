@@ -2,7 +2,7 @@
 
 #include <unity.h>
 
-#include <utils.h>
+#include <utils.hpp>
 
 void setUp(void)
 {

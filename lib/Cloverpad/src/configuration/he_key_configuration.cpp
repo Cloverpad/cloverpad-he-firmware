@@ -1,5 +1,5 @@
-#include <configuration/he_key_configuration.h>
-#include <utils.h>
+#include <configuration/he_key_configuration.hpp>
+#include <utils.hpp>
 
 bool verify_he_key_configuration(HEKeyConfiguration &configuration)
 {

@@ -2,8 +2,8 @@
 
 #include <cstdint>
 
-#include <configuration/he_key_configuration.h>
-#include <configuration/keypad_configuration.h>
+#include <configuration/he_key_configuration.hpp>
+#include <configuration/keypad_configuration.hpp>
 
 /// @brief The address in EEPROM where the keypad configuration is stored.
 #define EEPROM_CONFIGURATION_ADDR 0
