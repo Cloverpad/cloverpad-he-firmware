@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include <serial/command_handlers.hpp>
+#include <command_handlers.hpp>
 #include <serial/mappers.hpp>
 
 void handle_firmware_version(cloverpad_Response &response)
