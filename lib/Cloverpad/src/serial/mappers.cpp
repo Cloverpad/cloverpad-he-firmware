@@ -3,7 +3,7 @@
 void copy_main_configuration(KeypadConfiguration &source, KeypadConfiguration &target)
 {
     target.configuration_version = source.configuration_version;
-    strcpy(target.name, source.name);
+    strncpy(target.name, source.name, sizeof(source.name));
 }
 
 void copy_he_key_configuration(HEKeyConfiguration &source, HEKeyConfiguration &target, bool include_keycode)
