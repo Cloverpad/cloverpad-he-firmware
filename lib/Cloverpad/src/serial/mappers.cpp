@@ -37,7 +37,7 @@ cloverpad_MainConfiguration map_main_configuration(KeypadConfiguration &keypad_c
 KeypadConfiguration map_main_configuration(cloverpad_MainConfiguration &main_configuration)
 {
     KeypadConfiguration mapped = {};
-    mapped.configuration_version = FIRMWARE_VERSION;
+    mapped.configuration_version = CONFIGURATION_VERSION;
     strncpy(mapped.name, main_configuration.name, std::min(sizeof(mapped.name), sizeof(main_configuration.name)));
 
     return mapped;
