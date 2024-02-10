@@ -3,7 +3,7 @@
 #include <commands.pb.h>
 
 #include <configuration_handler.hpp>
-#include <input/input_handler.hpp>
+#include <input_handler.hpp>
 
 /// @brief Class for handling commands sent over the serial interface.
 class SerialHandler

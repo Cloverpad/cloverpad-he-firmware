@@ -2,8 +2,8 @@
 
 #include <constants.hpp>
 #include <input/he_key_input.hpp>
-#include <input/cloverpad_keyboard.hpp>
-#include <input/input_handler.hpp>
+#include <cloverpad_keyboard.hpp>
+#include <input_handler.hpp>
 #include <utils.hpp>
 
 void InputHandler::reset()

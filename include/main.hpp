@@ -1,8 +1,8 @@
 #pragma once
 
 #include <configuration_handler.hpp>
-#include <input/cloverpad_keyboard.hpp>
-#include <input/input_handler.hpp>
+#include <cloverpad_keyboard.hpp>
+#include <input_handler.hpp>
 #include <serial/serial_handler.hpp>
 
 /// @brief The current keyboard configuration to use.

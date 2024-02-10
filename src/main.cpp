@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 
-#include <input/cloverpad_keyboard.hpp>
+#include <cloverpad_keyboard.hpp>
 #include <main.hpp>
 
 /// @brief 1 ms (1000 Hz) Polling Rate
