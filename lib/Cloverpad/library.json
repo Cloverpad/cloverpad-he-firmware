@@ -1,0 +1,24 @@
+{
+  "name": "Cloverpad HE Core",
+  "version": "1.0.0",
+  "description": "Core logic for the Cloverpad HE firmware, a 3-key hall effect keypad for osu!",
+  "keywords": "osu, keypad, cloverpad, hall effect",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cloverpad/cloverpad-he-firmware.git"
+  },
+  "authors": [
+    {
+      "name": "Ace4896",
+      "url": "https://github.com/Ace4896",
+      "maintainer": true
+    }
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/Cloverpad/cloverpad-he-firmware",
+  "dependencies": {
+    "nanopb/Nanopb": "^0.4.8"
+  },
+  "frameworks": "*",
+  "platforms": "*"
+}
