@@ -64,11 +64,14 @@ void InputHandler::handle_normal_input(HEKeyConfiguration he_key_configs[HE_KEY_
 {
     // Read the current ADC values for each key and update averages
     // Clamp the ADC value to avoid overflowing
-    this->read_analog_values();
-
-    for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
+    for (std::size_t reading_count = 0; reading_count < ADC_READINGS_PER_INPUT; reading_count++)
     {
-        this->he_key_states[i].average_reading.push(clamp(this->adc_buffer[i], MIN_ADC, MAX_ADC));
+        this->read_analog_values();
+
+        for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
+        {
+            this->he_key_states[i].average_reading.push(clamp(this->adc_buffer[i], MIN_ADC, MAX_ADC));
+        }
     }
 
     // Only continuing processing if the moving averages have initialised
