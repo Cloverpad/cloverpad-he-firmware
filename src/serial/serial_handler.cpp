@@ -5,8 +5,7 @@
 
 #include <constants.hpp>
 #include <commands.pb.h>
-#include <serial/handlers/config_commands.hpp>
-#include <serial/handlers/main_commands.hpp>
+#include <serial/command_handlers.hpp>
 #include <serial/serial_handler.hpp>
 
 void SerialHandler::send_response(cloverpad_Response &response)
