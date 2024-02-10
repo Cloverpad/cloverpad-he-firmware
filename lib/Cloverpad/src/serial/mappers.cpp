@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <serial/mappers.h>
 
 void copy_main_configuration(KeypadConfiguration &source, KeypadConfiguration &target)
@@ -27,7 +29,7 @@ cloverpad_MainConfiguration map_main_configuration(KeypadConfiguration &keypad_c
 {
     cloverpad_MainConfiguration mapped = cloverpad_MainConfiguration_init_zero;
     mapped.configuration_version = keypad_configuration.configuration_version;
-    strcpy(mapped.name, keypad_configuration.name);
+    strncpy(mapped.name, keypad_configuration.name, std::min(sizeof(mapped.name), sizeof(keypad_configuration.name)));
 
     return mapped;
 }
@@ -36,7 +38,7 @@ KeypadConfiguration map_main_configuration(cloverpad_MainConfiguration &main_con
 {
     KeypadConfiguration mapped = {};
     mapped.configuration_version = FIRMWARE_VERSION;
-    strcpy(mapped.name, main_configuration.name);
+    strncpy(mapped.name, main_configuration.name, std::min(sizeof(mapped.name), sizeof(main_configuration.name)));
 
     return mapped;
 }
