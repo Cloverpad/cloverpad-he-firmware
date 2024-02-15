@@ -13,22 +13,24 @@ void tearDown(void)
 
 void test_is_initialised_updates_correctly(void)
 {
-    // Setup a moving average that stores 3 samples
-    auto moving_average = MovingAverage<3>();
+    // Setup a moving average that stores 4 samples
+    auto moving_average = MovingAverage<2>();
 
     // After constructor, is_initialised should be false
     TEST_ASSERT_FALSE(moving_average.is_initialised());
 
-    // After pushing sample #1, is_initialised should be false
+    // After pushing sample #1, #2, and #3, is_initialised should be false
     moving_average.push(1);
     TEST_ASSERT_FALSE(moving_average.is_initialised());
 
-    // After pushing sample #2, is_initialised should be false
     moving_average.push(2);
     TEST_ASSERT_FALSE(moving_average.is_initialised());
 
-    // After pushing sample #3, is_initialised should be true
-    for (uint16_t i = 3; i <= 10; i++)
+    moving_average.push(3);
+    TEST_ASSERT_FALSE(moving_average.is_initialised());
+
+    // After pushing sample #4, is_initialised should be true
+    for (uint16_t i = 4; i <= 10; i++)
     {
         moving_average.push(i);
         TEST_ASSERT_TRUE(moving_average.is_initialised());
@@ -38,7 +40,7 @@ void test_is_initialised_updates_correctly(void)
 void test_average_updates_correctly(void)
 {
     // Setup a moving average that stores 4 samples
-    auto moving_average = MovingAverage<4>();
+    auto moving_average = MovingAverage<2>();
 
     // Push 4 values in order: 2, 4, 6, 8
     // After pushing 8, the average should be (2 + 4 + 6 + 8) / 4 = 20 / 4 = 5

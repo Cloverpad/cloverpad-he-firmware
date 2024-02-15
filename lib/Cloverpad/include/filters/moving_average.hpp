@@ -4,14 +4,14 @@
 #include <cstddef>
 #include <cstdint>
 
-/// @brief Implements a moving average for ADC values.
-/// @tparam N The number of samples in the moving average
+/// @brief Implements a moving average for ADC values which stores 2^N samples.
+/// @tparam N The power in `2^N`, used for determining the number of samples.
 template <std::size_t N>
 class MovingAverage
 {
 private:
     /// @brief The current samples in this moving average.
-    std::array<uint16_t, N> samples = {};
+    std::array<uint16_t, 1 << N> samples = {};
 
     /// @brief The next index to be replaced when a new sample is pushed.
     std::size_t next_index = 0;
@@ -29,7 +29,7 @@ public:
     /// @brief Creates a new moving average with `N` samples.
     MovingAverage()
     {
-        static_assert(N >= 2, "Moving average must contain at least 2 samples");
+        static_assert(N >= 1, "Moving average must contain at least 2 samples");
     }
 
     /// @brief Whether `N` samples have been pushed to this moving average.
@@ -52,11 +52,11 @@ public:
         this->sum = this->sum - this->samples[this->next_index] + value;
 
         // Calculate the new average value
-        this->avg = this->sum / N;
+        this->avg = this->sum >> N;
 
         // Update the oldest index in the buffer
         this->samples[this->next_index] = value;
-        this->next_index = (this->next_index + 1) % N;
+        this->next_index = (this->next_index + 1) % this->samples.size();
 
         // Circular buffer is fully initialised if we've reached the beginning
         this->initialised |= this->next_index == 0;

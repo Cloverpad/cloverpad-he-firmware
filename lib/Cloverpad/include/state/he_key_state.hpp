@@ -3,9 +3,9 @@
 #include <constants.hpp>
 #include <filters/moving_average.hpp>
 
-/// @brief The number of samples in the moving average for each key.
-#ifndef MOVING_AVERAGE_SAMPLES
-#define MOVING_AVERAGE_SAMPLES 16
+#ifndef MOVING_AVERAGE_SAMPLES_POW
+/// @brief The number of moving average samples per key, given as a power of 2 (i.e. a value of 4 means 2^4 = 16 samples).
+#define MOVING_AVERAGE_SAMPLES_POW 4
 #endif
 
 /// @brief Holds the current state of a hall effect key.
@@ -15,7 +15,7 @@ struct HEKeyState
     bool pressed = false;
 
     /// @brief The moving average for this hall effect key's ADC readings.
-    MovingAverage<MOVING_AVERAGE_SAMPLES> average_reading = MovingAverage<MOVING_AVERAGE_SAMPLES>();
+    MovingAverage<MOVING_AVERAGE_SAMPLES_POW> average_reading = MovingAverage<MOVING_AVERAGE_SAMPLES_POW>();
 
     /// @brief The last calculated position for this key, which is used for determining the next state of the key.
     double last_position_mm = 0.0;
