@@ -37,7 +37,7 @@ void InputHandler::read_analog_values()
 {
     for (std::size_t i = 0; i < HE_KEY_COUNT; i++)
     {
-        this->adc_buffer[i] = HE_KEY_PIN(i);
+        this->adc_buffer[i] = analogRead(HE_KEY_PIN(i));
     }
 }
 
